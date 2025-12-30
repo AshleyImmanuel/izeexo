@@ -16,26 +16,31 @@
     top: 0;
     width: 50vw;
     height: 100vh;
-    background-color: #ffffff;
-    /* White Theme */
+    background-color: #050505;
+    /* Deep Black for Contrast */
     z-index: 1;
-    /* Subtle Grid Pattern */
+    /* Visible White Grid Pattern */
     background-image:
-        linear-gradient(#f0f0f0 1px, transparent 1px),
-        linear-gradient(90deg, #f0f0f0 1px, transparent 1px);
-    background-size: 20px 20px;
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
     background-position: center center;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    /* Shadow to separate from content on reveal */
 }
 
 .centerLine {
     position: absolute;
     top: 0;
-    width: 2px;
-    background: #000;
-    /* Minimalist Black Line */
-    z-index: 2;
     left: 50%;
+    width: 2px;
+    height: 0;
+    /* Animated in JS */
+    background: #ffffff;
+    /* White Line (Neutral) */
+    z-index: 2;
     transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .content {
@@ -44,21 +49,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .logoWrapper {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e5e5e5;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    /* Soft shadow */
+    position: relative;
+}
+
+.logoWrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .logo {
@@ -67,14 +79,14 @@
 }
 
 .brandName {
-    color: #000;
-    /* Black text */
-    font-size: 2rem;
+    color: #fff;
+    /* White Text */
+    font-size: 2.5rem;
     font-weight: 300;
     text-transform: uppercase;
-    background: #ffffff;
-    padding: 0 1rem;
-    letter-spacing: 0.2em;
-    border: 1px solid #f0f0f0;
-    /* Optional border for tag feel */
+    letter-spacing: 0.5em;
+    padding: 0.5rem 1rem;
+    background: #050505;
+    /* Mask line behind */
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
