@@ -1,0 +1,24 @@
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.logoWrapper {
+    opacity: 0;
+    scale: 0.8;
+}
+
+.logo {
+    border-radius: 50%;
+    /* Optional: if logo is square, make it circular for modern feel */
+    object-fit: cover;
+}

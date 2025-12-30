@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductFilters from "@/components/store/ProductFilters";
 import styles from "./page.module.css";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Mock Data
 const categories = ["All", "Logo Design", "Fashion Design", "Branding"];
@@ -17,6 +22,7 @@ const products = [
 ];
 
 export default function StorePage() {
+    const containerRef = useRef(null);
     const [activeCategory, setActiveCategory] = useState("All");
     const [searchTerm, setSearchTerm] = useState("");
     const [sortOption, setSortOption] = useState("featured");
@@ -25,8 +31,20 @@ export default function StorePage() {
     const [priceFilter, setPriceFilter] = useState(10000); // Default high max price
     const maxProductPrice = Math.max(...products.map(p => p.price), 0);
 
-    // Update filter logic
+    useGSAP(() => {
+        // Staggered reveal for products when filter changes or on load
+        gsap.from(".product-card-anim", {
+            y: 50,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out",
+            clearProps: "all" // Allow hover effects to work after animation
+        });
+    }, { scope: containerRef, dependencies: [activeCategory, searchTerm, priceFilter] });
+
     // Filter & Sort Logic
+    // ... (rest of logic)
     const filteredProducts = products
         .filter(product => {
             const matchesCategory = activeCategory === "All" || product.category === activeCategory;
@@ -47,7 +65,7 @@ export default function StorePage() {
     };
 
     return (
-        <main className={styles.main}>
+        <main className={styles.main} ref={containerRef}>
             <div className="container">
                 <header className={styles.header}>
                     <h1 className={styles.title}>Design Store</h1>
@@ -73,7 +91,9 @@ export default function StorePage() {
                 {/* Results Grid */}
                 <div className={styles.grid}>
                     {filteredProducts.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <div key={product.id} className="product-card-anim">
+                            <ProductCard product={product} />
+                        </div>
                     ))}
                     {filteredProducts.length === 0 && (
                         <div className={styles.noResults}>

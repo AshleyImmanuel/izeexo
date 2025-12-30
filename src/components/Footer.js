@@ -1,7 +1,6 @@
-"use client";
-
-import Link from 'next/link';
-import styles from './Footer.module.css';
+import Link from "next/link";
+import styles from "./Footer.module.css";
+import { FaWhatsapp, FaInstagram, FaYoutube, FaEnvelope } from "react-icons/fa";
 
 export default function Footer() {
     return (
@@ -14,25 +13,33 @@ export default function Footer() {
 
                 <div className={styles.links}>
                     <div className={styles.column}>
-                        <h3>Explore</h3>
-                        <Link href="/">Home</Link>
-                        <Link href="/store">Store</Link>
-                        <Link href="/services">Services</Link>
-                        <Link href="/about">About</Link>
+                        <h3 className={styles.heading}>Explore</h3>
+                        <Link href="/" className={styles.link}>Home</Link>
+                        <Link href="/store" className={styles.link}>Store</Link>
+                        <Link href="/services" className={styles.link}>Services</Link>
+                        <Link href="/about" className={styles.link}>About</Link>
                     </div>
-
                     <div className={styles.column}>
-                        <h3>Connect</h3>
-                        <a href="https://wa.me/917907314022?text=Hello%20Izeexo,%20I'm%20interested%20in%20your%20design%20services." target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                        <a href="https://instagram.com/Izeexo" target="_blank" rel="noopener noreferrer">Instagram</a>
-                        <a href="https://youtube.com/@izeexo?si=DB__yPiCFTqEWWDU" target="_blank" rel="noopener noreferrer">YouTube</a>
-                        <a href="mailto:hello@izeexo.com">Email</a>
+                        <h3 className={styles.heading}>Connect</h3>
+                        <div className={styles.socialGrid}>
+                            <Link href="https://wa.me/" target="_blank" className={`${styles.socialLink} ${styles.whatsapp}`}>
+                                <FaWhatsapp />
+                            </Link>
+                            <Link href="https://instagram.com" target="_blank" className={`${styles.socialLink} ${styles.instagram}`}>
+                                <FaInstagram />
+                            </Link>
+                            <Link href="https://youtube.com" target="_blank" className={`${styles.socialLink} ${styles.youtube}`}>
+                                <FaYoutube />
+                            </Link>
+                            <Link href="mailto:hello@izeexo.com" className={`${styles.socialLink} ${styles.email}`}>
+                                <FaEnvelope />
+                            </Link>
+                        </div>
                     </div>
                 </div>
-
-                <div className={styles.copyright}>
-                    &copy; {new Date().getFullYear()} Izeexo Design Studio. All rights reserved.
-                </div>
+            </div>
+            <div className={styles.bottom}>
+                <p>&copy; 2025 Izeexo Design Studio. All rights reserved.</p>
             </div>
         </footer>
     );
