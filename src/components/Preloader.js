@@ -9,8 +9,7 @@ export default function Preloader({ onComplete }) {
     const containerRef = useRef(null);
     const blueRef = useRef(null);
     const pinkRef = useRef(null);
-    const blackRef = useRef(null);
-    const flashRef = useRef(null);
+    const finalRef = useRef(null);
 
     // Text Refs
     const text1Ref = useRef(null);
@@ -30,12 +29,14 @@ export default function Preloader({ onComplete }) {
         // Initial setup
         gsap.set([text1Ref.current, text2Ref.current], { y: 100, opacity: 0 });
         gsap.set([logoWrapperRef.current, brandTagRef.current], { opacity: 0, y: 30 });
-        gsap.set(flashRef.current, { opacity: 0, pointerEvents: "none" });
 
-        // Character Split for Title
+        // Character Split for Title (Fixed Syntax)
         if (brandTitleRef.current) {
-            const chars = brandTitleRef.current.innerText.split("");
-            brandTitleRef.current.innerHTML = chars.map(c => `<span class="char" style="display:inline-block; opacity:0; transform:translateY(30px);">${c}</span>`).join("");
+            const text = brandTitleRef.current.innerText;
+            const chars = text.split("");
+            brandTitleRef.current.innerHTML = chars
+                .map(c => `<span class="char" style="display:inline-block; opacity:0; transform:translateY(30px);">${c}</span>`)
+                .join("");
         }
 
         tl
@@ -49,7 +50,7 @@ export default function Preloader({ onComplete }) {
             .to(text2Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
             .to(pinkRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
 
-            // --- STEP 3: BLACK LAYER (IZEEXO) ---
+            // --- STEP 3: WHITE LAYER (IZEEXO) ---
             // Logo Pops In
             .to(logoWrapperRef.current, {
                 opacity: 1,
@@ -69,46 +70,34 @@ export default function Preloader({ onComplete }) {
             // Tagline Fade
             .to(brandTagRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
 
-            .to({}, { duration: 0.8 }) // Hold for reading time
+            .to({}, { duration: 0.8 }) // Hold
 
-            // --- REVEAL: THE FLASH ---
-            // 1. Scale content UP aggressively (Zoom In effect)
+            // --- REVEAL: ZOOM OUT & FADE ---
+            // This time, instead of a flash, we Zoom the logo massively (Lens effect)
+            // and fade out the container to reveal the white site underneath.
             .to([logoWrapperRef.current, brandTitleRef.current, brandTagRef.current], {
-                scale: 1.5,
+                scale: 5,
                 opacity: 0,
-                duration: 0.5,
+                duration: 0.6,
                 ease: "power2.in"
             })
-            // 2. Flash White Overlay ON
-            .to(flashRef.current, {
-                opacity: 1,
-                duration: 0.1,
-                ease: "power2.out"
-            }, "-=0.2")
-            // 3. Hide Black Layer instantly behind the flash
-            .set(blackRef.current, { opacity: 0 })
-            // 4. Flash Fade OUT (Revealing Landing Page)
-            .to(flashRef.current, {
+            .to(finalRef.current, {
                 opacity: 0,
-                duration: 1.0,
-                ease: "power2.in" // Slow fade out for elegant entry
-            });
+                duration: 0.4
+            }, "-=0.2");
 
     }, [onComplete]);
 
     return (
         <div className={styles.preloader} ref={containerRef}>
 
-            {/* FLASH OVERLAY (Topmost) */}
-            <div className={styles.flashOverlay} ref={flashRef}></div>
-
-            {/* BLACK LAYER (Bottom) */}
-            <div className={`${styles.layer} ${styles.black}`} ref={blackRef}>
+            {/* WHITE LAYER (Bottom/Final) */}
+            <div className={`${styles.layer} ${styles.white}`} ref={finalRef}>
                 <div className={styles.centerContent}>
                     <div className={styles.logoWrapper} ref={logoWrapperRef}>
                         <Image src="/logo.jpg" alt="Izeexo" width={180} height={180} className={styles.logo} priority />
                     </div>
-                    {/* Note: suppressHydrationWarning added just in case of mismatched char split */}
+                    {/* suppressHydrationWarning to safe-guard char split */}
                     <h1 className={styles.brandTitle} ref={brandTitleRef} suppressHydrationWarning>IZEEXO</h1>
                     <p className={styles.brandTag} ref={brandTagRef}>VISUALIZING THE EXTRAORDINARY</p>
                 </div>
