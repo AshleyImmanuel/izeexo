@@ -62,7 +62,7 @@ export default function Navbar() {
         <div className="pill-nav-container">
             <nav className="pill-nav">
                 <Link href="/" className="pill-logo" ref={logoRef}>
-                    <Image src="/logo.jpg" alt="Izeexo" width={40} height={40} />
+                    <Image src="/logo.jpg" alt="Izeexo" width={40} height={40} priority />
                 </Link>
 
                 <div className="pill-nav-items desktop-only" ref={navItemsRef}>

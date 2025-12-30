@@ -71,7 +71,7 @@ export default function SignIn() {
             }}>
                 {/* Top Logo */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <Image src="/logo.jpg" alt="Izeexo" width={50} height={50} style={{ borderRadius: '50%' }} />
+                    <Image src="/logo.jpg" alt="Izeexo" width={50} height={50} style={{ borderRadius: '50%' }} priority />
                     <span style={{ fontSize: '1.25rem', fontWeight: '700', letterSpacing: '-0.02em' }}>Izeexo</span>
                 </div>
 
