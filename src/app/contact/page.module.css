@@ -125,13 +125,25 @@
     transform: scale(1.1);
 }
 
-/* Brand Colors */
+/* Brand Colors - Explicit Class Definitions to fix Hydration */
+.whatsapp {
+    border-color: rgba(37, 211, 102, 0.2);
+}
+
 .whatsapp .iconWrapper {
     color: #25D366;
 }
 
+.instagram {
+    border-color: rgba(225, 48, 108, 0.2);
+}
+
 .instagram .iconWrapper {
     color: #E1306C;
+}
+
+.email {
+    border-color: rgba(234, 67, 53, 0.2);
 }
 
 .email .iconWrapper {
