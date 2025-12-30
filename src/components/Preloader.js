@@ -1,4 +1,3 @@
-```javascript
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -10,8 +9,10 @@ export default function Preloader({ onComplete }) {
     const containerRef = useRef(null);
     const blueRef = useRef(null);
     const pinkRef = useRef(null);
-    const leftPanelRef = useRef(null);
-    const rightPanelRef = useRef(null);
+    const blackRef = useRef(null);
+    const flashRef = useRef(null);
+
+    // Text Refs
     const text1Ref = useRef(null);
     const text2Ref = useRef(null);
     const logoWrapperRef = useRef(null);
@@ -28,87 +29,98 @@ export default function Preloader({ onComplete }) {
 
         // Initial setup
         gsap.set([text1Ref.current, text2Ref.current], { y: 100, opacity: 0 });
-        gsap.set([logoWrapperRef.current, brandTitleRef.current, brandTagRef.current], { opacity: 0, y: 30 });
-        
-        // Split text for stagger (simple char split)
-        // Ensure brandTitleRef.current exists before trying to access its properties
+        gsap.set([logoWrapperRef.current, brandTagRef.current], { opacity: 0, y: 30 });
+        gsap.set(flashRef.current, { opacity: 0, pointerEvents: "none" });
+
+        // Character Split for Title
         if (brandTitleRef.current) {
             const chars = brandTitleRef.current.innerText.split("");
-            brandTitleRef.current.innerHTML = chars.map(c => `< span class="char" > ${ c }</span > `).join("");
-            // Set initial state for individual characters
-            gsap.set(brandTitleRef.current.querySelectorAll(".char"), { y: 30, opacity: 0 });
+            brandTitleRef.current.innerHTML = chars.map(c => `<span class="char" style="display:inline-block; opacity:0; transform:translateY(30px);">${c}</span>`).join("");
         }
 
-
         tl
-        // --- STEP 1: BLUE LAYER ---
-        .to(text1Ref.current, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
-        .to(text1Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
-        .to(blueRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
+            // --- STEP 1: BLUE LAYER (DESIGN) ---
+            .to(text1Ref.current, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
+            .to(text1Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
+            .to(blueRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
 
-        // --- STEP 2: PINK LAYER ---
-        .to(text2Ref.current, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.4")
-        .to(text2Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
-        .to(pinkRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
+            // --- STEP 2: PINK LAYER (ELEGANCE) ---
+            .to(text2Ref.current, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.4")
+            .to(text2Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
+            .to(pinkRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
 
-        // --- STEP 3: BLACK LAYER (FINAL) ---
-        // Logo Scale & Fade
-        .to(logoWrapperRef.current, { 
-            opacity: 1, 
-            y: 0, 
-            scale: 1, 
-            duration: 0.8, 
-            ease: "back.out(1.7)" 
-        }, "-=0.3")
-        // Title Staggered
-        .to(brandTitleRef.current.querySelectorAll(".char"), { // Target the individual chars
-            y: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 0.6,
-            ease: "power3.out"
-        }, "-=0.5")
-        // Tagline Fade
-        .to(brandTagRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
+            // --- STEP 3: BLACK LAYER (IZEEXO) ---
+            // Logo Pops In
+            .to(logoWrapperRef.current, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "back.out(1.7)"
+            }, "-=0.3")
+            // Title Staggered Reveal
+            .to(brandTitleRef.current.querySelectorAll(".char"), {
+                y: 0,
+                opacity: 1,
+                stagger: 0.05,
+                duration: 0.6,
+                ease: "power3.out"
+            }, "-=0.5")
+            // Tagline Fade
+            .to(brandTagRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
 
-        .to({}, { duration: 0.8 }) // Hold
+            .to({}, { duration: 0.8 }) // Hold for reading time
 
-        // --- REVEAL: CURTAIN SPLIT ---
-        .to([logoWrapperRef.current, brandTitleRef.current.querySelectorAll(".char"), brandTagRef.current], {
-            opacity: 0,
-            scale: 0.9,
-            duration: 0.4
-        })
-        .to(leftPanelRef.current, { xPercent: -100, duration: 1.2, ease: "power3.inOut" }, "split")
-        .to(rightPanelRef.current, { xPercent: 100, duration: 1.2, ease: "power3.inOut" }, "split");
+            // --- REVEAL: THE FLASH ---
+            // 1. Scale content UP aggressively (Zoom In effect)
+            .to([logoWrapperRef.current, brandTitleRef.current, brandTagRef.current], {
+                scale: 1.5,
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.in"
+            })
+            // 2. Flash White Overlay ON
+            .to(flashRef.current, {
+                opacity: 1,
+                duration: 0.1,
+                ease: "power2.out"
+            }, "-=0.2")
+            // 3. Hide Black Layer instantly behind the flash
+            .set(blackRef.current, { opacity: 0 })
+            // 4. Flash Fade OUT (Revealing Landing Page)
+            .to(flashRef.current, {
+                opacity: 0,
+                duration: 1.0,
+                ease: "power2.in" // Slow fade out for elegant entry
+            });
 
     }, [onComplete]);
 
     return (
         <div className={styles.preloader} ref={containerRef}>
-            
-            {/* BLACK SPLIT LAYER (Bottom) */}
-            <div className={`${ styles.layer } ${ styles.splitLayer } `}>
-                <div className={styles.panel} ref={leftPanelRef}></div>
-                <div className={styles.panel} ref={rightPanelRef}></div>
-                
-                {/* Content on top of panels */}
+
+            {/* FLASH OVERLAY (Topmost) */}
+            <div className={styles.flashOverlay} ref={flashRef}></div>
+
+            {/* BLACK LAYER (Bottom) */}
+            <div className={`${styles.layer} ${styles.black}`} ref={blackRef}>
                 <div className={styles.centerContent}>
                     <div className={styles.logoWrapper} ref={logoWrapperRef}>
                         <Image src="/logo.jpg" alt="Izeexo" width={180} height={180} className={styles.logo} priority />
                     </div>
-                    <h1 className={styles.brandTitle} ref={brandTitleRef}>IZEEXO</h1>
+                    {/* Note: suppressHydrationWarning added just in case of mismatched char split */}
+                    <h1 className={styles.brandTitle} ref={brandTitleRef} suppressHydrationWarning>IZEEXO</h1>
                     <p className={styles.brandTag} ref={brandTagRef}>VISUALIZING THE EXTRAORDINARY</p>
                 </div>
             </div>
 
             {/* PINK LAYER (Middle) */}
-            <div className={`${ styles.layer } ${ styles.pink } `} ref={pinkRef}>
+            <div className={`${styles.layer} ${styles.pink}`} ref={pinkRef}>
                 <h2 className={styles.bigText} ref={text2Ref}>ELEGANCE</h2>
             </div>
-            
+
             {/* BLUE LAYER (Top) */}
-            <div className={`${ styles.layer } ${ styles.blue } `} ref={blueRef}>
+            <div className={`${styles.layer} ${styles.blue}`} ref={blueRef}>
                 <h2 className={styles.bigText} ref={text1Ref}>DESIGN</h2>
             </div>
 
