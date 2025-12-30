@@ -72,11 +72,11 @@
 }
 
 .highlight {
-    color: #000;
+    color: #2563eb;
+    /* Blue-600 to match screenshot */
     display: inline-block;
 }
 
-/* Subtitle - Professional & Clean */
 /* Subtitle - Centered */
 .subtitle {
     font-size: clamp(1.1rem, 1.5vw, 1.25rem);
@@ -103,15 +103,13 @@
     position: absolute;
     top: -10%;
     right: -10%;
-    /* Move to corner */
     width: 60vw;
     height: 60vw;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
-    /* Purple tinted */
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    /* Blue Glow */
     border-radius: 50%;
     z-index: 1;
     pointer-events: none;
-    /* Opacity handled by GSAP */
 }
 
 @media (max-width: 768px) {

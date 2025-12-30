@@ -1,11 +1,46 @@
 "use client";
 
 import styles from "./ProblemSection.module.css";
-// No GSAP needed for static clean grid
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ProblemSection() {
+    const sectionRef = useRef(null);
+
+    useGSAP(() => {
+        // Animate Header
+        gsap.from(`.${styles.header}`, {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: `.${styles.header}`,
+                start: "top 85%",
+            }
+        });
+
+        // Animate Grid Items
+        gsap.from(`.${styles.card}`, {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: `.${styles.grid}`,
+                start: "top 80%",
+            }
+        });
+
+    }, { scope: sectionRef });
+
     return (
-        <section className={styles.section}>
+        <section className={styles.section} ref={sectionRef}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>

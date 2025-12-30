@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// Icon import removed to fix build error
+// Icons removed - using abstract text/shapes
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +25,7 @@ export default function ServicesBento() {
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 85%",
+                    start: "top 80%",
                 }
             }
         );
@@ -42,47 +42,50 @@ export default function ServicesBento() {
                 {/* 1. Brand Identity */}
                 <div className={`${styles.card} ${styles.large}`}>
                     <div className={styles.content}>
-                        <div className={styles.icon}>B</div>
+                        <div className={styles.icon}>01</div>
                         <h3 className={styles.cardTitle}>Brand Identity & Logos</h3>
                         <p className={styles.cardDesc}>
                             We craft iconic logos and visual systems that define your label.
                             From tags to typography, we ensure your brand stops the scroll.
                         </p>
                     </div>
+                    <div className={styles.graphic} />
                 </div>
 
                 {/* 2. Apparel */}
                 <div className={styles.card}>
                     <div className={styles.content}>
-                        <div className={styles.icon}>A</div>
-                        <h3 className={styles.cardTitle}>Apparel Design</h3>
+                        <div className={styles.icon}>02</div>
+                        <h3 className={styles.cardTitle}>Collection Design</h3>
                         <p className={styles.cardDesc}>
-                            From moodboards and sketches to technical packs for production.
+                            Full cut-and-sew development. From initial moodboards to production-ready technical packs.
                         </p>
                     </div>
+                    <div className={styles.graphic} style={{ background: 'radial-gradient(circle, rgba(0,0,0,0.05) 0%, transparent 70%)' }} />
                 </div>
 
                 {/* 3. Merch */}
                 <div className={styles.card}>
                     <div className={styles.content}>
-                        <div className={styles.icon}>M</div>
+                        <div className={styles.icon}>03</div>
                         <h3 className={styles.cardTitle}>Custom Merch</h3>
                         <p className={styles.cardDesc}>
                             High-quality streetwear and merchandise design that builds community.
                         </p>
                     </div>
+                    <div className={styles.graphic} />
                 </div>
 
                 {/* 4. Storefronts */}
                 <div className={`${styles.card} ${styles.large}`} style={{ gridColumn: 'span 2' }}>
                     <div className={styles.content}>
-                        <div className={styles.icon}>W</div>
-                        <h3 className={styles.cardTitle}>Web Storefronts</h3>
+                        <div className={styles.icon}>04</div>
+                        <h3 className={styles.cardTitle}>Digital Flagships</h3>
                         <p className={styles.cardDesc}>
-                            Sleek, high-converting e-commerce experiences (Shopify/Next.js)
-                            specifically tailored for drops and collections.
+                            Immersive brand experiences. We build online stores that feel like a physical showroom, tailored for drops.
                         </p>
                     </div>
+                    <div className={styles.graphic} style={{ left: 'auto', right: '-5%', bottom: '-40%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)' }} />
                 </div>
             </div>
         </section>
