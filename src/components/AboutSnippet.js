@@ -1,9 +1,39 @@
+"use client";
+
 import styles from "./AboutSnippet.module.css";
-import Link from "next/link";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutSnippet() {
+    const sectionRef = useRef(null);
+
+    useGSAP(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        tl.from(`.${styles.title}`, { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" })
+            .from(`.${styles.description}`, { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.6")
+            .from(`.${styles.statBox}`, {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out"
+            }, "-=0.4");
+
+    }, { scope: sectionRef });
+
     return (
-        <section className={styles.section}>
+        <section className={styles.section} ref={sectionRef}>
             <div className="container">
                 <div className={styles.content}>
                     <h2 className={styles.title}>We Design for the Future</h2>
