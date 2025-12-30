@@ -19,23 +19,41 @@
     overflow: hidden;
 }
 
-/* Colors from Brand */
 .blue {
     background-color: #2563eb;
-    /* Brand Blue */
     z-index: 30;
 }
 
 .pink {
     background-color: #ec4899;
-    /* Brand Pink (approx based on logo) */
     z-index: 20;
 }
 
-.black {
-    background-color: #000000;
+/* Split Layer Container */
+.splitLayer {
     z-index: 10;
+    pointer-events: none;
+    /* Allow clicks through panels if needed */
 }
+
+.panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #000;
+}
+
+.panel:first-child {
+    left: 0;
+}
+
+/* Left Panel */
+.panel:nth-child(2) {
+    right: 0;
+}
+
+/* Right Panel */
 
 .bigText {
     font-size: 12vw;
@@ -48,6 +66,9 @@
 }
 
 .centerContent {
+    position: relative;
+    z-index: 20;
+    /* Above panels */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,6 +97,8 @@
     letter-spacing: 0.1em;
     margin: 0;
     line-height: 1;
+    display: flex;
+    gap: 0.1em;
 }
 
 .brandTag {
@@ -85,7 +108,12 @@
     font-size: 0.9rem;
 }
 
-/* Responsive adjustments */
+/* Character animation helpers */
+.brandTitle :global(.char) {
+    display: inline-block;
+    opacity: 0;
+}
+
 @media (max-width: 768px) {
     .bigText {
         font-size: 18vw;
@@ -93,5 +121,10 @@
 
     .brandTitle {
         font-size: 2.5rem;
+    }
+
+    .logoWrapper {
+        width: 140px;
+        height: 140px;
     }
 }
