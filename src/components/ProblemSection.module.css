@@ -64,12 +64,20 @@
 }
 
 .iconWarning {
-    color: #fff;
+    color: #2563eb;
+    /* Blue-600 */
     flex-shrink: 0;
-    font-size: 1.2rem;
-    background: #222;
-    padding: 0.5rem;
-    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    background: #eff6ff;
+    /* Blue-50 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    border: 1px solid #2563eb;
 }
 
 /* Positioning - Static */

@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react"; // Assuming lucide is available or use SVG
+// Icon import removed to fix build error
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,7 +49,6 @@ export default function ServicesBento() {
                             From tags to typography, we ensure your brand stops the scroll.
                         </p>
                     </div>
-                    <div className={styles.graphic} />
                 </div>
 
                 {/* 2. Apparel */}
@@ -61,7 +60,6 @@ export default function ServicesBento() {
                             From moodboards and sketches to technical packs for production.
                         </p>
                     </div>
-                    <div className={styles.graphic} style={{ width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(0,0,0,0.05) 0%, transparent 70%)' }} />
                 </div>
 
                 {/* 3. Merch */}
@@ -73,7 +71,6 @@ export default function ServicesBento() {
                             High-quality streetwear and merchandise design that builds community.
                         </p>
                     </div>
-                    <div className={styles.graphic} />
                 </div>
 
                 {/* 4. Storefronts */}
@@ -86,7 +83,6 @@ export default function ServicesBento() {
                             specifically tailored for drops and collections.
                         </p>
                     </div>
-                    <div className={styles.graphic} style={{ left: 'auto', right: '-5%', bottom: '-40%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)' }} />
                 </div>
             </div>
         </section>
