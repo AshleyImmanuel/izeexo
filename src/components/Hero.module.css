@@ -44,38 +44,38 @@
 }
 
 /* Title - Massive Editorial */
+/* Title - Premium Editorial, Balanced */
 .title {
-    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    /* Reduced max size for elegance */
     font-weight: 800;
-    /* Bold */
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    margin-bottom: 2rem;
+    line-height: 1.05;
+    /* More breathing room */
+    letter-spacing: -0.03em;
+    margin-bottom: 2.5rem;
     color: #000;
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
-    /* Explicit gap control */
+    gap: 0.25rem;
 }
 
 .connector {
     font-size: 0.4em;
-    /* Relative to parent font size */
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    transform: translateY(-1em);
-    /* Visual alignment */
-    color: #555;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #666;
     font-family: var(--font-primary);
-    /* Ensure consistency */
-    font-style: italic;
+    font-style: normal;
+    text-transform: none;
+    margin-bottom: -0.5em;
+    /* Tuck closer */
 }
 
 .highlight {
-    color: #8b5cf6;
-    /* Deep Purple */
+    color: #7c3aed;
+    /* Standardized Brand Purple */
     display: inline-block;
 }
 
