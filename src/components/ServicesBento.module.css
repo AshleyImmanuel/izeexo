@@ -1,11 +1,13 @@
 .section {
-    padding: 10rem 0;
+    padding: 6rem 0;
+    /* Reduced from 10rem */
     background: #fff;
     color: #000;
 }
 
 .heading {
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
+    /* Reduced from 5rem */
     text-align: center;
 }
 
@@ -29,9 +31,12 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, minmax(320px, auto));
     gap: 1.5rem;
-    max-width: 1400px;
+    max-width: 1600px;
+    /* Increased from 1400px */
+    width: 95%;
+    /* Ensure it fills screen on smaller devices */
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 
 /* Card Styles - Premium/Abstract */

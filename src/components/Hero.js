@@ -69,7 +69,7 @@ export default function Hero() {
                 <h1 className={styles.title}>
                     {/* Block layout for editorial impact */}
                     <div className="hero_title_row">ELEVATE</div>
-                    <div className="hero_title_row">ELEVATE YOUR BRAND</div>
+                    <div className="hero_title_row">YOUR BRAND</div>
                     <div className="hero_title_row">
                         with <span className={styles.highlight}>Elegant Design</span>
                     </div>
