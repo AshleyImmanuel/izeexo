@@ -1,82 +1,162 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import styles from "./page.module.css";
-import Image from "next/image";
-import VisionSection from "@/components/about/VisionSection";
-import ValuesSection from "@/components/about/ValuesSection";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutPage() {
-    const [loaded, setLoaded] = useState(false);
+    const containerRef = useRef(null);
 
-    useEffect(() => {
-        setLoaded(true);
-    }, []);
+    useGSAP(() => {
+        const tl = gsap.timeline();
+
+        // Hero Text - Cinematic Blur Reveal
+        tl.from(".hero_word", {
+            y: 100,
+            opacity: 0,
+            filter: "blur(20px)",
+            duration: 1.5,
+            stagger: 0.15,
+            ease: "power4.out"
+        });
+
+        // Hero Description
+        tl.from(`.${styles.description}`, {
+            y: 20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out"
+        }, "-=1");
+
+        // Narrative Section Scroll Trigger
+        gsap.from("p.narrative_text", {
+            scrollTrigger: {
+                trigger: ".narrative_section",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2
+        });
+
+        // Stats Counter Animation
+        gsap.from(".stat_value", {
+            scrollTrigger: {
+                trigger: ".stats_section",
+                start: "top 80%"
+            },
+            textContent: 0,
+            duration: 2,
+            ease: "power1.out",
+            snap: { textContent: 1 },
+            stagger: 0.2
+        });
+
+        // Values Cards
+        gsap.from(".value_card", {
+            scrollTrigger: {
+                trigger: ".values_section",
+                start: "top 75%"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1
+        });
+
+    }, { scope: containerRef });
 
     const stats = [
-        { label: "Years Experience", value: "5+" },
-        { label: "Projects Delivered", value: "100+" },
-        { label: "Awards Won", value: "12" },
-        { label: "Global Clients", value: "40+" },
+        { label: "Years of Excellence", value: 5 },
+        { label: "Successful Projects", value: 120 },
+        { label: "Awards Won", value: 15 },
+        { label: "Global Partners", value: 40 }
     ];
 
-    return (
-        <main className={styles.main}>
-            <div className={`container ${styles.container}`}>
+    const values = [
+        { title: "Precision", desc: "Every pixel serves a purpose. We believe in the power of refined, intentional design.", number: "01" },
+        { title: "Innovation", desc: "Pushing the boundaries of what is possible in web and fashion technology.", number: "02" },
+        { title: "Elegance", desc: "Creating experiences that feel luxurious, timeless, and effortlessly sophisticated.", number: "03" }
+    ];
 
-                {/* Hero Section */}
-                <section className={`${styles.hero} ${loaded ? styles.visible : ""}`}>
+    // Helper to wrap words for animation
+    const Word = ({ children, className = "" }) => (
+        <span className={`hero_word ${className}`} style={{ display: 'inline-block', willChange: 'transform, filter, opacity' }}>
+            {children}
+        </span>
+    );
+
+    return (
+        <main className={styles.main} ref={containerRef}>
+            <div className={styles.container}>
+
+                {/* Hero */}
+                <section className={styles.hero}>
                     <div className={styles.heroContent}>
-                        <span className={styles.badge}>Our Story</span>
-                        <h1 className={styles.title}>Visualizing the <br /> <span className={styles.highlight}>Extraordinary</span></h1>
-                        <p className={styles.lead}>
-                            We are Izeexo, a design collective dedicated to crafting premium digital experiences
-                            and exclusive fashion statements.
+                        <span className={styles.label}>Who We Are</span>
+                        <div className={styles.title}>
+                            <Word>CRAFTING</Word>
+                            <span className={styles.highlight} style={{ display: 'inline-block' }}>
+                                <Word>DIGITAL</Word>
+                            </span>
+                            <Word>MASTERPIECES</Word>
+                        </div>
+                        <p className={styles.description}>
+                            Izeexo is a boutique design studio at the intersection of technology and artistry.
+                            We build brands that demand attention.
                         </p>
                     </div>
                 </section>
 
-                {/* Stats Grid */}
-                <section className={styles.statsSection}>
+                {/* Narrative */}
+                <section className={`${styles.narrative} narrative_section`}>
+                    <div className={styles.narrativeGrid}>
+                        <div className={styles.sectionTitle}>Our Story</div>
+                        <div className={styles.narrativeText}>
+                            <p className="narrative_text">
+                                We started with a simple belief: <strong>Design differentiates.</strong> In a crowded digital landscape,
+                                mediocrity is invisible.
+                            </p>
+                            <p className="narrative_text">
+                                From bespoke web applications to avant-garde fashion concepts, our work is defined by a
+                                relentless pursuit of perfection. We don't just build websites; we create immersive ecosystems
+                                that tell your brand's unique story.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Stats */}
+                <section className={`${styles.stats} stats_section`}>
                     <div className={styles.statsGrid}>
-                        {stats.map((stat, index) => (
-                            <div
-                                key={index}
-                                className={`${styles.statCard} ${loaded ? styles.cardVisible : ""}`}
-                                style={{ transitionDelay: `${index * 100}ms` }}
-                            >
-                                <span className={styles.statValue}>{stat.value}</span>
+                        {stats.map((stat, i) => (
+                            <div key={i} className={styles.statItem}>
+                                <span className={`${styles.statValue} stat_value`}>{stat.value}</span>
                                 <span className={styles.statLabel}>{stat.label}</span>
                             </div>
                         ))}
                     </div>
                 </section>
 
-                {/* Content Cards */}
-                <section className={styles.content}>
-                    <div className={`${styles.card} ${loaded ? styles.cardVisible : ""}`} style={{ transitionDelay: '400ms' }}>
-                        <h2>Our Philosophy</h2>
-                        <p>
-                            We believe design is not just about how things look, but how they work.
-                            Our approach is rooted in clarity, minimalism, and purpose. We strip away
-                            the non-essential to reveal the core identity of our clients.
-                        </p>
-                        <div className={styles.decorativeLine}></div>
-                    </div>
-
-                    <div className={`${styles.card} ${styles.darkCard} ${loaded ? styles.cardVisible : ""}`} style={{ transitionDelay: '600ms' }}>
-                        <h2>What We Do</h2>
-                        <p>
-                            From brand strategy and logo design to exclusive fashion pieces,
-                            we provide a holistic approach to creative direction. We partner with
-                            ambitious visionaries and established brands to tell their stories
-                            through visual art and design.
-                        </p>
+                {/* Values */}
+                <section className={`${styles.values} values_section`}>
+                    <div className={styles.sectionTitle} style={{ marginBottom: '2rem' }}>Our Philosophy</div>
+                    <div className={styles.valuesGrid}>
+                        {values.map((item, i) => (
+                            <div key={i} className={`${styles.valueCard} value_card`}>
+                                <span className={styles.valueNumber}>{item.number}</span>
+                                <h3 className={styles.valueTitle}>{item.title}</h3>
+                                <p className={styles.valueDesc}>{item.desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </section>
-
-                <VisionSection />
-                <ValuesSection />
 
             </div>
         </main>

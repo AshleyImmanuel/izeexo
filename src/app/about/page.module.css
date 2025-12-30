@@ -1,66 +1,104 @@
+/* Global Vars & Reset */
 .main {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
     min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+    overflow-x: hidden;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
 }
 
 /* Hero Section */
 .hero {
-    text-align: center;
-    margin-bottom: 6rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-top: 100px;
 }
 
-.visible {
-    opacity: 1;
-    transform: translateY(0);
+.heroContent {
+    max-width: 1200px;
 }
 
-.badge {
+.label {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 100px;
     font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.2s;
 }
 
 .title {
-    font-size: 4.5rem;
-    font-weight: 800;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin-bottom: 2rem;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-    padding: 0 1rem;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
 }
 
 .highlight {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-main) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #8b5cf6;
+    /* Use a specific purple or variable if defined */
+    display: block;
 }
 
-.lead {
-    font-size: 1.5rem;
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 0 auto;
+.description {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    max-width: 600px;
     line-height: 1.6;
+    color: var(--gray-500, #888);
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
+}
+
+/* Narrative Section */
+.narrative {
+    padding: 8rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.narrativeGrid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+}
+
+.sectionTitle {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500, #888);
+    position: sticky;
+    top: 100px;
+}
+
+.narrativeText p {
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    font-weight: 300;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+}
+
+.narrativeText p strong {
+    font-weight: 600;
+    color: #fff;
 }
 
 /* Stats Section */
-.statsSection {
-    margin-bottom: 6rem;
+.stats {
+    padding: 4rem 0 8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .statsGrid {
@@ -69,174 +107,111 @@
     gap: 2rem;
 }
 
-.statCard {
-    background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cardVisible {
-    opacity: 1;
-    transform: translateY(0);
+.statItem {
+    display: flex;
+    flex-direction: column;
 }
 
 .statValue {
-    display: block;
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--color-main);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
     margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .statLabel {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* Content Cards */
-.content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.card {
-    background: white;
-    padding: 4rem;
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.darkCard {
-    background: var(--color-main);
-    color: white;
-}
-
-.darkCard h2 {
-    color: white;
-}
-
-.darkCard p {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.card h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-}
-
-.card p {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-}
-
-.decorativeLine {
-    height: 4px;
-    width: 60px;
-    background: var(--color-primary);
-    margin-top: 2rem;
-    border-radius: 2px;
-}
-
-/* Vision Section */
-.visionSection {
-    margin: 8rem 0;
-    text-align: center;
-    position: relative;
-}
-
-.sectionTitle {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-    color: var(--text-muted);
+    font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-}
-
-.visionText {
-    font-size: 2.5rem;
-    font-weight: 300;
-    line-height: 1.4;
-    color: var(--text-main);
-    max-width: 800px;
-    margin: 0 auto;
-    font-style: italic;
+    color: var(--gray-500, #888);
 }
 
 /* Values Grid */
-.valuesSection {
-    margin-bottom: 6rem;
+.values {
+    padding: 10rem 0;
 }
 
 .valuesGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    margin-top: 4rem;
 }
 
 .valueCard {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    transition: transform 0.3s ease;
-    border: 1px solid #f0f0f0;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 4px;
+    transition: all 0.4s ease;
 }
 
 .valueCard:hover {
+    background: rgba(255, 255, 255, 0.05);
     transform: translateY(-5px);
-    border-color: var(--color-primary);
 }
 
-.valueCard h3 {
-    font-size: 1.5rem;
+.valueNumber {
+    font-size: 0.875rem;
+    color: var(--gray-500, #888);
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.valueTitle {
+    font-size: 2rem;
+    font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--text-main);
 }
 
-.valueCard p {
-    color: var(--text-muted);
+.valueDesc {
+    color: var(--gray-400, #aaa);
     line-height: 1.6;
 }
 
-@media (max-width: 768px) {
-    .title {
-        font-size: 3rem;
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .narrativeGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .sectionTitle {
+        position: static;
+        margin-bottom: 1rem;
     }
 
     .statsGrid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
     }
+}
 
-    .content {
+@media (max-width: 640px) {
+    .statsGrid {
         grid-template-columns: 1fr;
+        gap: 3rem;
     }
 
-    .visionText {
-        font-size: 1.5rem;
-    }
-
-    .card {
-        padding: 2.5rem;
+    .hero {
+        align-items: flex-start;
+        padding-top: 150px;
     }
 }
