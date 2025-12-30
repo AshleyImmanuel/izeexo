@@ -7,9 +7,11 @@ import Image from "next/image";
 
 export default function Preloader({ onComplete }) {
     const containerRef = useRef(null);
-    const contentRef = useRef(null);
+    const leftPanelRef = useRef(null);
+    const rightPanelRef = useRef(null);
     const logoRef = useRef(null);
-    const titleRef = useRef(null);
+    const lineRef = useRef(null);
+    const textRef = useRef(null);
 
     useEffect(() => {
         const tl = gsap.timeline({
@@ -19,70 +21,70 @@ export default function Preloader({ onComplete }) {
             }
         });
 
-        // Initial States
-        gsap.set(contentRef.current, { perspective: 800 });
-        gsap.set([logoRef.current, titleRef.current], {
-            z: 0,
-            rotationX: 0,
-            rotationY: 0,
-            opacity: 0,
-            y: 50
-        });
+        // Initial State
+        gsap.set(lineRef.current, { height: 0 });
+        gsap.set(textRef.current, { opacity: 0, letterSpacing: "1em" });
 
         tl
-            // 1. Entering (Cinematic Float Up)
-            .to([logoRef.current, titleRef.current], {
-                y: 0,
+            // 1. Logo Fades In
+            .fromTo(logoRef.current,
+                { scale: 0.8, opacity: 0 },
+                { scale: 1, opacity: 1, duration: 1, ease: "power2.out" }
+            )
+            // 2. Center Line Draws (Top to Bottom)
+            .to(lineRef.current, {
+                height: "100vh",
+                duration: 1,
+                ease: "expo.inOut"
+            }, "-=0.5")
+            // 3. Text Reveals (Condensing)
+            .to(textRef.current, {
                 opacity: 1,
-                duration: 1.5,
-                stagger: 0.2,
+                letterSpacing: "0.2em",
+                duration: 1,
                 ease: "power3.out"
-            })
-            // 2. 3D Tilt / Float
-            .to([logoRef.current, titleRef.current], {
-                rotationX: 10,
-                z: 50,
-                duration: 2,
-                ease: "sine.inOut",
-                yoyo: true,
-                repeat: 1
-            }, "-=1.0")
+            }, "-=0.5")
 
-            // 3. Anticipation (Shrink slightly)
-            .to(containerRef.current, {
-                scale: 0.95,
-                duration: 0.5,
-                ease: "power2.in"
-            })
+            // 4. Pause
+            .to({}, { duration: 0.5 })
 
-            // 4. THE PORTAL ZOOM (Fly through)
-            .to(containerRef.current, {
-                scale: 50,
+            // 5. THE SPLIT (Open Doors)
+            .to([logoRef.current, textRef.current, lineRef.current], {
                 opacity: 0,
-                duration: 0.8,
-                ease: "expo.in",
-                pointerEvents: "none"
-            });
+                duration: 0.3
+            })
+            .to(leftPanelRef.current, {
+                xPercent: -100,
+                duration: 1.2,
+                ease: "power3.inOut"
+            }, "split")
+            .to(rightPanelRef.current, {
+                xPercent: 100,
+                duration: 1.2,
+                ease: "power3.inOut"
+            }, "split");
 
     }, [onComplete]);
 
     return (
         <div className={styles.preloader} ref={containerRef}>
-            <div className={styles.innerContent} ref={contentRef}>
+            <div className={styles.panel} ref={leftPanelRef} style={{ left: 0 }}></div>
+            <div className={styles.panel} ref={rightPanelRef} style={{ right: 0 }}></div>
+
+            <div className={styles.centerLine} ref={lineRef}></div>
+
+            <div className={styles.content}>
                 <div className={styles.logoWrapper} ref={logoRef}>
                     <Image
                         src="/logo.jpg"
                         alt="Izeexo Logo"
-                        width={150}
-                        height={150}
+                        width={140}
+                        height={140}
                         priority
                         className={styles.logo}
                     />
                 </div>
-                <h1 className={styles.title} ref={titleRef}>
-                    IZEEXO
-                    <span className={styles.tagline}>DESIGN STUDIO</span>
-                </h1>
+                <h2 className={styles.brandName} ref={textRef}>IZEEXO</h2>
             </div>
         </div>
     );

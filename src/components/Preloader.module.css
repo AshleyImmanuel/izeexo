@@ -4,33 +4,53 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000000;
-    /* Deep Black */
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transform-origin: center center;
 }
 
-.innerContent {
+.panel {
+    position: absolute;
+    top: 0;
+    width: 50vw;
+    /* Half width */
+    height: 100vh;
+    background-color: #000;
+    z-index: 1;
+}
+
+.centerLine {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    background: #2563eb;
+    /* Brand Blue */
+    z-index: 2;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.content {
+    position: relative;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    transform-style: preserve-3d;
+    gap: 1.5rem;
 }
 
 .logoWrapper {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    /* Subtle glow for 3D feel */
-    box-shadow: 0 0 50px rgba(37, 99, 235, 0.3);
-    overflow: hidden;
     background: #000;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .logo {
@@ -38,24 +58,12 @@
     border-radius: 50%;
 }
 
-.title {
+.brandName {
     color: #fff;
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1;
-    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.tagline {
-    font-size: 0.8rem;
-    color: #2563eb;
-    /* Blue Accent */
-    letter-spacing: 0.4em;
-    margin-top: 1rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 300;
     text-transform: uppercase;
+    background: #000;
+    /* Hide line behind if needed */
+    padding: 0 1rem;
 }
