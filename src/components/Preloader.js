@@ -1,50 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./Preloader.module.css";
 import gsap from "gsap";
 import Image from "next/image";
 
-// Shuffle Text Component (Simplified inline for Preloader)
-const ShuffleText = ({ text, trigger }) => {
-    const [display, setDisplay] = useState("");
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
-
-    useEffect(() => {
-        if (!trigger) return;
-
-        let iteration = 0;
-        const interval = setInterval(() => {
-            setDisplay(
-                text
-                    .split("")
-                    .map((letter, index) => {
-                        if (index < iteration) {
-                            return text[index];
-                        }
-                        return chars[Math.floor(Math.random() * chars.length)];
-                    })
-                    .join("")
-            );
-
-            if (iteration >= text.length) {
-                clearInterval(interval);
-            }
-
-            iteration += 1 / 3;
-        }, 30);
-
-        return () => clearInterval(interval);
-    }, [trigger, text]);
-
-    return <span>{display || text.split("").map(() => "0").join("")}</span>;
-}
-
 export default function Preloader({ onComplete }) {
     const containerRef = useRef(null);
-    const logoRef = useRef(null);
     const contentRef = useRef(null);
-    const [startShuffle, setStartShuffle] = useState(false);
+    const logoRef = useRef(null);
+    const titleRef = useRef(null);
 
     useEffect(() => {
         const tl = gsap.timeline({
@@ -54,73 +19,70 @@ export default function Preloader({ onComplete }) {
             }
         });
 
-        // 1. Line up shutters (handled in CSS/JSX)
+        // Initial States
+        gsap.set(contentRef.current, { perspective: 800 });
+        gsap.set([logoRef.current, titleRef.current], {
+            z: 0,
+            rotationX: 0,
+            rotationY: 0,
+            opacity: 0,
+            y: 50
+        });
 
-        // 2. Animate Content In
-        tl.to(logoRef.current, {
-            scale: 1,
-            opacity: 1,
-            duration: 1,
-            ease: "power2.out"
-        })
-            .call(() => setStartShuffle(true)) // Start text shuffle
-            .to(`.${styles.textWrapper}`, {
+        tl
+            // 1. Entering (Cinematic Float Up)
+            .to([logoRef.current, titleRef.current], {
+                y: 0,
                 opacity: 1,
-                duration: 0.5
-            }, "-=0.5")
+                duration: 1.5,
+                stagger: 0.2,
+                ease: "power3.out"
+            })
+            // 2. 3D Tilt / Float
+            .to([logoRef.current, titleRef.current], {
+                rotationX: 10,
+                z: 50,
+                duration: 2,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: 1
+            }, "-=1.0")
 
-            // 3. Pause for impact
-            .to({}, { duration: 1.2 })
-
-            // 4. Content Scales Out
-            .to(contentRef.current, {
-                scale: 1.5,
-                opacity: 0,
-                duration: 0.6,
+            // 3. Anticipation (Shrink slightly)
+            .to(containerRef.current, {
+                scale: 0.95,
+                duration: 0.5,
                 ease: "power2.in"
             })
 
-            // 5. Shutters Reveal (Staggered Slide Up)
-            .to(`.${styles.shutter}`, {
-                height: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: "power4.inOut"
+            // 4. THE PORTAL ZOOM (Fly through)
+            .to(containerRef.current, {
+                scale: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: "expo.in",
+                pointerEvents: "none"
             });
 
     }, [onComplete]);
 
     return (
         <div className={styles.preloader} ref={containerRef}>
-            {/* Shutters Overlay */}
-            <div className={styles.shutterGrid}>
-                {[...Array(5)].map((_, i) => (
-                    <div key={i} className={styles.shutter} />
-                ))}
-            </div>
-
-            {/* Main Content (Above Shutters initially, but we want shutters to BE the background) 
-                Wait, shutters should be the background that slides away. 
-                So content z-index > shutters.
-            */}
-            <div className={styles.content} ref={contentRef}>
-                <div className={styles.logoContainer}>
+            <div className={styles.innerContent} ref={contentRef}>
+                <div className={styles.logoWrapper} ref={logoRef}>
                     <Image
-                        ref={logoRef}
                         src="/logo.jpg"
-                        alt="Izeexo Output"
-                        width={140}
-                        height={140}
+                        alt="Izeexo Logo"
+                        width={150}
+                        height={150}
                         priority
                         className={styles.logo}
                     />
                 </div>
-                <div className={styles.textWrapper}>
-                    <h1 className={styles.brandTitle}>
-                        <ShuffleText text="IZEEXO" trigger={startShuffle} />
-                    </h1>
-                    <p className={styles.brandSubtitle}>VISUALIZING THE EXTRAORDINARY</p>
-                </div>
+                <h1 className={styles.title} ref={titleRef}>
+                    IZEEXO
+                    <span className={styles.tagline}>DESIGN STUDIO</span>
+                </h1>
             </div>
         </div>
     );

@@ -4,81 +4,58 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    background-color: #000000;
+    /* Deep Black */
     z-index: 9999;
-    overflow: hidden;
-    /* Transparent container, shutters provide the white bg */
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
-    /* Let clicks pass through after animation if z-index lingers */
+    overflow: hidden;
+    transform-origin: center center;
 }
 
-.shutterGrid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    z-index: 10000;
-    /* Behind content */
-}
-
-.shutter {
-    flex: 1;
-    height: 100%;
-    background-color: #000;
-    /* Premium Black start */
-    transform-origin: top;
-}
-
-.content {
-    position: relative;
-    z-index: 10001;
-    /* Above shutters */
+.innerContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     gap: 2rem;
+    transform-style: preserve-3d;
 }
 
-.logoContainer {
-    width: 140px;
-    height: 140px;
+.logoWrapper {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
+    /* Subtle glow for 3D feel */
+    box-shadow: 0 0 50px rgba(37, 99, 235, 0.3);
     overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.1);
     background: #000;
 }
 
 .logo {
-    opacity: 0;
-    transform: scale(0.5);
     object-fit: cover;
+    border-radius: 50%;
 }
 
-.textWrapper {
-    opacity: 0;
+.title {
     color: #fff;
-    /* White text on Black shutters */
-}
-
-.brandTitle {
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    margin: 0;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     line-height: 1;
-    font-family: monospace;
-    /* Cyber/Tech feel for shuffle */
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-.brandSubtitle {
-    font-size: 0.85rem;
-    letter-spacing: 0.3em;
-    color: #888;
-    margin-top: 0.75rem;
+.tagline {
+    font-size: 0.8rem;
+    color: #2563eb;
+    /* Blue Accent */
+    letter-spacing: 0.4em;
+    margin-top: 1rem;
+    font-weight: 600;
     text-transform: uppercase;
 }
