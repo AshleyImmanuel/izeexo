@@ -1,99 +1,136 @@
 .hero {
-    height: 100vh;
+    min-height: 90vh;
     width: 100%;
     display: flex;
-    align-items: center;
+    /* Flex is good, but maybe grid for structure? Let's stick to flex col for hero content but align left */
+    flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
     padding-top: var(--nav-height);
-    background: var(--bg-main);
+    background: #ffffff;
+    color: #000;
 }
 
 .content {
-    text-align: center;
+    text-align: left;
+    /* key change */
     z-index: 2;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s var(--transition-smooth);
-    max-width: 800px;
-    padding: 0 1rem;
+    max-width: 1400px;
+    /* Wider container */
+    width: 100%;
+    padding: 0 4rem;
+    /* match About page padding */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Align items to start */
 }
 
-.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
+/* Badge - Minimal & Sharp */
 .badge {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background: rgba(0, 68, 204, 0.1);
-    color: var(--color-primary);
-    border-radius: 50px;
-    font-size: 0.875rem;
+    padding: 0 0 0.5rem 0;
+    background: transparent;
+    color: #444;
+    border-bottom: 1px solid #000;
+    font-size: 0.75rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.2em;
+    border-radius: 0;
 }
 
+/* Title - Massive Editorial */
 .title {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
     font-weight: 800;
-    line-height: 1.5;
-    /* Increased to prevent clipping */
-    margin-bottom: 1.5rem;
-    color: var(--text-main);
-    padding: 10px;
-    /* Add horizontal padding to prevent side clipping */
-    overflow: visible;
-    /* Prevent clipping */
-    /* Extra safety for descenders */
+    /* Bold */
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+    color: #000;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    /* Explicit gap control */
+}
+
+.connector {
+    font-size: 0.4em;
+    /* Relative to parent font size */
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    transform: translateY(-1em);
+    /* Visual alignment */
+    color: #555;
+    font-family: var(--font-primary);
+    /* Ensure consistency */
+    font-style: italic;
 }
 
 .highlight {
-    color: var(--color-primary);
-    position: relative;
+    color: #8b5cf6;
+    /* Deep Purple */
     display: inline-block;
-    vertical-align: baseline;
-    /* Ensure natural alignment */
-    /* Transform removed */
 }
 
+/* Subtitle - Magazine Style */
 .subtitle {
-    font-size: 1.125rem;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
+    font-size: clamp(1.125rem, 1.5vw, 1.35rem);
+    color: #111;
+    /* Darker for readability */
+    margin-bottom: 4rem;
+    max-width: 500px;
+    margin-left: 0;
+    /* Align left */
+    line-height: 1.5;
+    font-weight: 500;
+    border-left: 2px solid #8b5cf6;
+    /* Accent line */
+    padding-left: 1.5rem;
 }
 
 .actions {
     display: flex;
-    gap: 1rem;
-    justify-content: center;
+    gap: 1.5rem;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
+/* Abstract Background */
 .bgCircle {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(0, 68, 204, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+    top: -10%;
+    right: -10%;
+    /* Move to corner */
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+    /* Purple tinted */
     border-radius: 50%;
     z-index: 1;
-    opacity: 0;
-    transition: all 1.5s ease;
     pointer-events: none;
+    /* Opacity handled by GSAP */
 }
 
-.bgVisible {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+@media (max-width: 768px) {
+    .content {
+        padding: 0 1.5rem;
+    }
+
+    .title {
+        font-size: 13vw;
+    }
+
+    .bgCircle {
+        width: 100vw;
+        height: 100vw;
+        top: 20%;
+        right: -20%;
+    }
 }

@@ -20,22 +20,22 @@ export default function Hero() {
             ease: "power3.out"
         });
 
-        // Reveal Title Words
-        tl.from(".hero_title_word", {
+        // Reveal Title Words (staggered block reveal)
+        tl.from(".hero_title_row", {
             y: 50,
             opacity: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power3.out"
+            duration: 1.2,
+            stagger: 0.15,
+            ease: "power4.out"
         }, "-=0.4");
 
         // Reveal Subtitle
         tl.from(`.${styles.subtitle}`, {
-            y: 20,
+            x: -20,
             opacity: 0,
             duration: 0.8,
             ease: "power3.out"
-        }, "-=0.6");
+        }, "-=0.8");
 
         // Reveal Actions
         tl.from(`.${styles.actions}`, {
@@ -45,19 +45,19 @@ export default function Hero() {
             ease: "power3.out"
         }, "-=0.6");
 
-        // Reveal Background Circle
+        // Reveal Background
         tl.from(`.${styles.bgCircle}`, {
             scale: 0.8,
             opacity: 0,
-            duration: 1.5,
+            duration: 2,
             ease: "power2.out"
-        }, "-=1");
+        }, "-=1.5");
 
     }, { scope: containerRef });
 
-    // Helper for title words to ensure they are wrapped for animation
+    // Helper for title rows
     const TitleWord = ({ children, highlight = false }) => (
-        <span className={`hero_title_word ${highlight ? styles.highlight : ''}`} style={{ display: 'inline-block', marginRight: '0.2em' }}>
+        <span className={highlight ? styles.highlight : ''}>
             {children}
         </span>
     );
@@ -67,13 +67,12 @@ export default function Hero() {
             <div className={styles.content}>
                 <span className={styles.badge}>Premium Design Studio</span>
                 <h1 className={styles.title}>
-                    <TitleWord>Elevate</TitleWord>
-                    <TitleWord>Your</TitleWord>
-                    <TitleWord>Brand</TitleWord>
-                    <br />
-                    <TitleWord>with</TitleWord>
-                    <TitleWord highlight={true}>Elegant</TitleWord>
-                    <TitleWord highlight={true}>Design</TitleWord>
+                    {/* Block layout for editorial impact */}
+                    <div className="hero_title_row">ELEVATE</div>
+                    <div className="hero_title_row">YOUR BRAND</div>
+                    <div className="hero_title_row">
+                        <span className={styles.highlight}>ELEGANTLY.</span>
+                    </div>
                 </h1>
                 <p className={styles.subtitle}>
                     We craft stunning visuals, logos, and websites that leave a lasting impression.
@@ -85,7 +84,7 @@ export default function Hero() {
                         Explore Store
                     </Link>
                     <Link href="/services" className="btn btn-outline">
-                        Request Custom Design
+                        Start Project
                     </Link>
                 </div>
             </div>

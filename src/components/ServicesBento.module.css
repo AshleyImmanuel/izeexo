@@ -1,0 +1,151 @@
+.section {
+    padding: 8rem 0;
+    background: #fff;
+    color: #000;
+}
+
+.heading {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, minmax(300px, auto));
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Card Styles */
+.card {
+    background: #f8f8f8;
+    border-radius: 1px;
+    /* Sharp corners like "Developer Lab" ref? Or slightly rounded? Refs look slightly rounded. */
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #fff;
+    border-color: #eee;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* Layout Spans */
+.large {
+    grid-column: span 2;
+}
+
+.tall {
+    grid-row: span 2;
+}
+
+.content {
+    z-index: 2;
+}
+
+.cardTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.cardDesc {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    background: #000;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    display: grid;
+    place-items: center;
+    color: #fff;
+}
+
+/* Mock Graphics for visual interest */
+.graphic {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+/* Specific graphics */
+.graphicLine {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 4px;
+    background: #000;
+}
+
+.graphicCircle {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 150px;
+    height: 150px;
+    border: 20px solid #ececec;
+    border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .large {
+        grid-column: span 2;
+    }
+
+    .tall {
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .large {
+        grid-column: span 1;
+    }
+}
