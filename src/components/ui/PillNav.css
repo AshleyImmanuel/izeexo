@@ -22,10 +22,13 @@
     pointer-events: auto;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 35px;
+    /* STRETCH: Huge gap to widen the bar */
     background: var(--base);
     border-radius: 9999px;
-    padding: 8px 12px;
+    padding: 6px 30px;
+    /* SLIM: Very tight vertical padding */
+    /* Slightly larger padding */
     box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -35,6 +38,7 @@
     align-items: center;
     justify-content: center;
     width: 40px;
+    /* Revert */
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
@@ -71,10 +75,12 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 10px 24px;
+    padding: 0 20px;
+    /* Width, but no height padding */
     text-decoration: none;
     border-radius: 999px;
     font-size: 14px;
+    /* Revert font */
     font-weight: 500;
     color: #333;
     overflow: hidden;
@@ -82,7 +88,8 @@
     cursor: pointer;
     background: transparent;
     border: none;
-    height: 44px;
+    height: 40px;
+    /* Slimmer height */
 }
 
 .pill:hover {

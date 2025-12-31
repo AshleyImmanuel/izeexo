@@ -3,6 +3,7 @@
 import { use } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
+import toast from "react-hot-toast";
 
 // Mock Data (in real app, fetch from generic API/DB)
 const products = {
@@ -47,7 +48,12 @@ export default function ProductPage({ params }) {
 
                         <p className={styles.description}>{product.description}</p>
 
-                        <button className="btn btn-primary">Add to Cart</button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => toast.success("Added to cart!")}
+                        >
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>

@@ -76,15 +76,15 @@ export default function Hero() {
                 </h1>
                 <p className={styles.subtitle}>
                     We craft stunning visuals, logos, and websites that leave a lasting impression.
-                    Minimalist, professional, and tailored to your vision.
+                    Tailored to your unique vision.
                 </p>
 
-                <div className={styles.actions}>
-                    <Link href="/store" className="btn btn-primary">
+                <div className={styles.buttonGroup}>
+                    <Link href="/store" className={styles.primaryButton}>
                         Explore Store
                     </Link>
-                    <Link href="/services" className="btn btn-outline">
-                        Start Project
+                    <Link href="/about" className={styles.secondaryButton}>
+                        Learn More
                     </Link>
                 </div>
             </div>

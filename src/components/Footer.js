@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styles from "./Footer.module.css";
-import { FaWhatsapp, FaInstagram, FaEnvelope, FaArrowRight } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaEnvelope, FaArrowRight, FaYoutube } from "react-icons/fa";
 import Image from "next/image";
 
 export default function Footer() {
@@ -10,26 +10,12 @@ export default function Footer() {
         <footer className={styles.footer}>
             <div className={`container ${styles.container}`}>
 
-                {/* 1. MEGA CTA SECTION */}
-                <div className={styles.ctaSection}>
-                    <h2 className={styles.megaText}>
-                        <span className={styles.outlineText}>LETS</span>
-                        <span className={styles.filledText}>CREATE</span>
-                    </h2>
-                    <h2 className={styles.megaText}>
-                        <span className={styles.filledText}>SOMETHING</span>
-                        <span className={styles.outlineText}>REAL.</span>
-                    </h2>
 
-                    <Link href="/contact" className={styles.ctaButton}>
-                        Start A Project <FaArrowRight className={styles.btnIcon} />
-                    </Link>
-                </div>
 
-                <div className={styles.separator}></div>
+
 
                 {/* 2. CONTENT GRID */}
-                <div className={styles.contentGrid}>
+                <div className={styles.footerContentGrid}>
 
                     {/* Brand Column */}
                     <div className={styles.brandColumn}>
@@ -40,6 +26,9 @@ export default function Footer() {
                         <p className={styles.brandDesc}>
                             A Premium Design Studio Visualizing The Extraordinary For Forward-Thinking Brands.
                         </p>
+                        <Link href="/contact" className={styles.ctaButton}>
+                            For Custom Designs or Logo <FaArrowRight className={styles.btnIcon} />
+                        </Link>
                         <div className={styles.studioInfo}>
                             <p>EST. 2025</p>
                             <p>DESIGN STUDIO</p>
@@ -47,23 +36,25 @@ export default function Footer() {
                     </div>
 
                     {/* Links Columns */}
-                    <div className={styles.linksGroup}>
-                        <div className={styles.linkCol}>
+                    <div className={styles.footerLinksGroup}>
+                        <div className={styles.footerLinkCol}>
                             <h4>EXPLORE</h4>
                             <Link href="/">Home</Link>
                             <Link href="/store">Store</Link>
-                            <Link href="/services">Services</Link>
                             <Link href="/about">About</Link>
                         </div>
 
-                        <div className={styles.linkCol}>
+                        <div className={styles.footerLinkCol}>
                             <h4>CONNECT</h4>
-                            <div className={styles.socialList}>
+                            <div className={styles.footerSocialList}>
                                 <a href="https://wa.me/917907314022" target="_blank" className={styles.socialItem}>
                                     <FaWhatsapp className={styles.socialIcon} style={{ color: '#25D366' }} /> WhatsApp
                                 </a>
                                 <a href="https://instagram.com/Izeexo" target="_blank" className={styles.socialItem}>
                                     <FaInstagram className={styles.socialIcon} style={{ color: '#E1306C' }} /> Instagram
+                                </a>
+                                <a href="https://youtube.com/@izeexo" target="_blank" className={styles.socialItem}>
+                                    <FaYoutube className={styles.socialIcon} style={{ color: '#FF0000' }} /> YouTube
                                 </a>
                                 <a href="mailto:hello@izeexo.com" className={styles.socialItem}>
                                     <FaEnvelope className={styles.socialIcon} style={{ color: '#EA4335' }} /> Email
@@ -78,6 +69,7 @@ export default function Footer() {
                     <p>&copy; 2025 IZEEXO. All Rights Reserved.</p>
                     <div className={styles.bottomLinks}>
                         <Link href="/privacy">Privacy</Link>
+                        <span style={{ margin: "0 0.5rem" }}>|</span>
                         <Link href="/terms">Terms</Link>
                     </div>
                 </div>

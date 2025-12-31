@@ -8,9 +8,9 @@
     /* Align top, not center */
     position: relative;
     overflow: hidden;
-    padding-top: calc(var(--nav-height) + 4rem);
-    /* Tighter top spacing */
-    padding-bottom: 6rem;
+    padding-top: calc(var(--nav-height) - 1rem);
+    /* Aggressively reduced top spacing */
+    padding-bottom: 3rem;
     background: #ffffff;
     color: #000;
 }
@@ -29,20 +29,68 @@
     }
 }
 
+/* Premium Buttons */
+.buttonGroup {
+    display: flex;
+    gap: 1rem;
+    /* Tighter gap between buttons */
+    margin-top: 0;
+    /* REMOVED: Was causing double margin with subtitle */
+    z-index: 10;
+    position: relative;
+}
+
+.primaryButton {
+    padding: 0.8rem 2rem;
+    /* Sleeker padding */
+    background-color: #003366;
+    color: white;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 51, 102, 0.2);
+}
+
+/* ... primaryButton:hover ... */
+
+.secondaryButton {
+    padding: 0.8rem 2rem;
+    /* Sleeker padding */
+    background-color: transparent;
+    color: #333;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+    border-color: #000;
+    background-color: #000;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
 .content {
     text-align: center;
     z-index: 2;
     max-width: 1400px;
     width: 100%;
-    padding: 0 2rem;
+    padding-top: calc(var(--nav-height) + 1.5rem);
+    /* Tighter top spacing */
+    padding-bottom: 5rem;
+    background: #ffffff;
+    color: #000;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Badge - Minimal & Sharp */
-/* Badge - Minimal */
+/* Badge */
 .badge {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -52,21 +100,23 @@
     border: none;
     font-size: 0.75rem;
     font-weight: 600;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+    /* Balanced */
     text-transform: uppercase;
     letter-spacing: 0.2em;
     border-radius: 100px;
 }
 
-/* Title - Massive Editorial */
-/* Title - Premium Editorial, Balanced */
+/* Title */
 .title {
     font-size: clamp(2.5rem, 6vw, 5rem);
     /* Decreased from 3rem/7vw/6rem */
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.1;
+    /* Fix line overlap */
     letter-spacing: -0.03em;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+    /* Balanced */
     color: #000;
     text-transform: uppercase;
     display: flex;
@@ -109,7 +159,9 @@
 .subtitle {
     font-size: clamp(1.1rem, 1.5vw, 1.25rem);
     color: #444;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1.5rem;
+    /* Final tight spacing */
+    /* Reduced from 3.5rem to lift buttons */
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;

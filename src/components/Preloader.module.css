@@ -29,8 +29,13 @@
     z-index: 20;
 }
 
+
+
 .white {
     background-color: #ffffff;
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px),
+        linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+    background-size: 40px 40px;
     z-index: 10;
 }
 
@@ -108,4 +113,18 @@
         width: 140px;
         height: 140px;
     }
+}
+
+/* Textured Backgrounds - Removed for performance as requested */
+
+/* Ensure Text is above texture */
+.bigText {
+    z-index: 20;
+    position: relative;
+    will-change: transform, opacity;
+}
+
+/* Optimize Layers */
+.layer {
+    will-change: transform;
 }

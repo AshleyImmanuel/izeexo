@@ -37,6 +37,7 @@ export default function StorePage() {
             y: 50,
             opacity: 0,
             duration: 0.6,
+            delay: 0.6, // Wait for Template fade-in
             stagger: 0.1,
             ease: "power2.out",
             clearProps: "all" // Allow hover effects to work after animation

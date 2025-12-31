@@ -26,11 +26,11 @@ export default function Preloader({ onComplete }) {
             }
         });
 
-        // Initial setup
-        gsap.set([text1Ref.current, text2Ref.current], { y: 100, opacity: 0 });
+        // Initial setup - Force content visibility
+        gsap.set([text1Ref.current, text2Ref.current], { y: 80, opacity: 0 });
         gsap.set([logoWrapperRef.current, brandTagRef.current], { opacity: 0, y: 30 });
 
-        // Character Split for Title (Fixed Syntax)
+        // Character Split for Title
         if (brandTitleRef.current) {
             const text = brandTitleRef.current.innerText;
             const chars = text.split("");
@@ -41,17 +41,18 @@ export default function Preloader({ onComplete }) {
 
         tl
             // --- STEP 1: BLUE LAYER (DESIGN) ---
-            .to(text1Ref.current, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
-            .to(text1Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
+            .to(text1Ref.current, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" })
+            .to(text1Ref.current, { y: -50, opacity: 0, duration: 0.4, ease: "power2.in" }, "+=0.2")
+            // Exit
             .to(blueRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
 
             // --- STEP 2: PINK LAYER (ELEGANCE) ---
-            .to(text2Ref.current, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.4")
-            .to(text2Ref.current, { y: -50, opacity: 0, duration: 0.5, ease: "power2.in" }, "+=0.2")
+            .to(text2Ref.current, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, "-=0.4")
+            .to(text2Ref.current, { y: -50, opacity: 0, duration: 0.4, ease: "power2.in" }, "+=0.2")
+            // Exit
             .to(pinkRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
 
             // --- STEP 3: WHITE LAYER (IZEEXO) ---
-            // Logo Pops In
             .to(logoWrapperRef.current, {
                 opacity: 1,
                 y: 0,
@@ -59,32 +60,28 @@ export default function Preloader({ onComplete }) {
                 duration: 0.8,
                 ease: "back.out(1.7)"
             }, "-=0.3")
-            // Title Staggered Reveal
             .to(brandTitleRef.current.querySelectorAll(".char"), {
                 y: 0,
                 opacity: 1,
-                stagger: 0.05,
+                stagger: 0.04,
                 duration: 0.6,
                 ease: "power3.out"
-            }, "-=0.5")
-            // Tagline Fade
-            .to(brandTagRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
+            }, "-=0.6")
+            .to(brandTagRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
 
-            .to({}, { duration: 0.8 }) // Hold
+            .to({}, { duration: 0.5 }) // Hold
 
-            // --- REVEAL: ZOOM OUT & FADE ---
-            // This time, instead of a flash, we Zoom the logo massively (Lens effect)
-            // and fade out the container to reveal the white site underneath.
+            // --- FINAL REVEAL ---
             .to([logoWrapperRef.current, brandTitleRef.current, brandTagRef.current], {
-                scale: 5,
+                scale: 1.5,
                 opacity: 0,
-                duration: 0.6,
+                duration: 0.5,
                 ease: "power2.in"
             })
             .to(finalRef.current, {
                 opacity: 0,
-                duration: 0.4
-            }, "-=0.2");
+                duration: 0.5
+            }, "-=0.1");
 
     }, [onComplete]);
 

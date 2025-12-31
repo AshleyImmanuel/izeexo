@@ -10,7 +10,7 @@ export default function ContactPage() {
                 <div className={styles.header}>
                     <h1 className={styles.title}>Get in Touch</h1>
                     <p className={styles.subtitle}>
-                        Reach out to us directly through your preferred platform.
+                        For Custom Designs or Enquiries Leave A Message
                     </p>
                 </div>
 
