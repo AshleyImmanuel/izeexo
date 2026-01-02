@@ -15,12 +15,14 @@ import { Toaster } from "react-hot-toast";
 function LayoutContent({ children }) {
   const pathname = usePathname();
   const isAuthPage = pathname?.startsWith('/auth');
+  const isDashboardPage = pathname?.startsWith('/dashboard');
+  const shouldShowNav = !isAuthPage && !isDashboardPage;
 
   return (
     <>
-      {!isAuthPage && <Navbar />}
+      {shouldShowNav && <Navbar />}
       {children}
-      {!isAuthPage && <Footer />}
+      {shouldShowNav && <Footer />}
     </>
   );
 }

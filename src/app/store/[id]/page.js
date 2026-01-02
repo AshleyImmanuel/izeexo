@@ -4,6 +4,8 @@ import { use } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // Mock Data (in real app, fetch from generic API/DB)
 const products = {
@@ -18,11 +20,24 @@ const products = {
 export default function ProductPage({ params }) {
     // Unwrap params using React.use() as per Next.js 15+ guidance
     const resolvedParams = use(params);
+    const { data: session } = useSession();
+    const router = useRouter();
+
     const product = products[resolvedParams.id] || {
         title: "Product Not Found",
         price: 0,
         description: "This product does not exist.",
         category: "N/A"
+    };
+
+    const handleAddToCart = () => {
+        if (!session) {
+            toast.error("Please login to purchase");
+            router.push("/auth/signin?callbackUrl=" + window.location.pathname);
+            return;
+        }
+        toast.success("Added to cart!");
+        // Future: Add real cart logic here
     };
 
     return (
@@ -50,7 +65,7 @@ export default function ProductPage({ params }) {
 
                         <button
                             className="btn btn-primary"
-                            onClick={() => toast.success("Added to cart!")}
+                            onClick={handleAddToCart}
                         >
                             Add to Cart
                         </button>

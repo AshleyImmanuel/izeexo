@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from 'next/link';
 import { FiPenTool, FiLayers, FiMonitor, FiBox, FiArrowRight } from 'react-icons/fi';
+import BrandMarquee from "@/components/about/BrandMarquee";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,8 +84,8 @@ export default function AboutPage() {
 
     const createItems = [
         { icon: <FiPenTool />, title: "Brand Identity", desc: "Logos, visual systems, and brand guidelines that define who you are.", link: "/contact" },
-        { icon: <FiMonitor />, title: "Digital Experiences", desc: "High-performance websites and interfaces tailored for impact.", link: "/contact" },
-        { icon: <FiLayers />, title: "Fashion Design", desc: "Tech packs, pattern making, and apparel concept development.", link: "/store" },
+        { icon: <FiLayers />, title: "Collection Design", desc: "Tech packs, pattern making, and apparel concept development.", link: "/store" },
+        { icon: <FiMonitor />, title: "Digital Lookbooks", desc: "High-performance digital showcases for your collections.", link: "/contact" },
         { icon: <FiBox />, title: "Creative Assets", desc: "3D renders, mockups, and graphic elements ready to use.", link: "/store" }
     ];
 
@@ -104,15 +105,18 @@ export default function AboutPage() {
                     <div className={styles.title}>
                         <Word>CRAFTING</Word>
                         <span className={styles.highlight} style={{ display: 'inline-block' }}>
-                            <Word>DIGITAL</Word>
+                            <Word>BRAND</Word>
                         </span>
-                        <Word>MASTERPIECES</Word>
+                        <Word>LEGACIES</Word>
                     </div>
                     <p className={styles.description}>
                         Izeexo is a premium design studio. We bridge the gap between
                         artistic vision and commercial reality.
                     </p>
                 </section>
+
+                {/* Brand Marquee */}
+                <BrandMarquee />
 
                 {/* What We Create - Bento Grid */}
                 <section className={`${styles.section} create_section`}>
@@ -173,10 +177,26 @@ export default function AboutPage() {
                 <section className={`${styles.narrative} narrative_section`}>
                     <p className={`${styles.narrativeText} narrative_text`}>
                         &quot;We don&apos;t just make things look good. We build systems that work.
-                        Whether it&apos;s a <span className={styles.narrativeHighlight}>custom website</span> or a
-                        <span className={styles.narrativeHighlight}> premium asset pack</span>, our goal is the same:
+                        Whether it&apos;s a <span className={styles.narrativeHighlight}>custom logo</span> or a
+                        <span className={styles.narrativeHighlight}> premium fashion collection</span>, our goal is the same:
                         to empower your creative potential.&quot;
                     </p>
+
+                    {/* Stats Grid to fill space */}
+                    <div className={styles.statsRow}>
+                        <div className={styles.statItem}>
+                            <span className={styles.statNumber}>100+</span>
+                            <span className={styles.statLabel}>Projects Delivered</span>
+                        </div>
+                        <div className={styles.statItem}>
+                            <span className={styles.statNumber}>50+</span>
+                            <span className={styles.statLabel}>Premium Assets</span>
+                        </div>
+                        <div className={styles.statItem}>
+                            <span className={styles.statNumber}>24/7</span>
+                            <span className={styles.statLabel}>Dedicated Support</span>
+                        </div>
+                    </div>
                 </section>
 
             </div>

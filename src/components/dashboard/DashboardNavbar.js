@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
-import styles from "./Navbar.module.css";
+import styles from "./DashboardNavbar.module.css";
 
-export default function Navbar() {
-    const { data: session } = useSession();
+export default function DashboardNavbar({ user }) {
     const pathname = usePathname();
     const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -17,14 +16,12 @@ export default function Navbar() {
         { label: "Store", href: "/store" },
         { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },
-        // Only show Dashboard link if logged in? Or always?
-        // Usually good to show it if logged in.
+        { label: "Dashboard", href: "/dashboard" },
     ];
 
     return (
         <nav className={styles.navbar}>
             <div className={styles.container}>
-                {/* Logo */}
                 <Link href="/" className={styles.logo}>
                     <div className={styles.logoIcon}>ZE</div>
                     <span>IZEEXO</span>
@@ -36,34 +33,20 @@ export default function Navbar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`${styles.navItem} ${pathname === item.href ? styles.active : ''}`}
+                            className={`${styles.navItem} ${pathname === item.href || (item.href === '/dashboard' && pathname.startsWith('/dashboard')) ? styles.active : ''}`}
                         >
                             {item.label}
                         </Link>
                     ))}
-                    {session && (
-                        <Link
-                            href="/dashboard"
-                            className={`${styles.navItem} ${pathname.startsWith('/dashboard') ? styles.active : ''}`}
-                        >
-                            Dashboard
-                        </Link>
-                    )}
                 </div>
 
-                {/* Right Section: Auth / Avatar / Mobile Toggle */}
-                <div className={styles.rightSection}>
-                    {session ? (
-                        <Link href="/dashboard" className={styles.avatarLink}>
-                            <div className={styles.avatar}>
-                                {session.user.name?.charAt(0).toUpperCase()}
-                            </div>
-                        </Link>
-                    ) : (
-                        <Link href="/auth/signin" className={styles.loginBtn}>
-                            Login
-                        </Link>
-                    )}
+                {/* Right Section: Avatar / Mobile Toggle */}
+                <div className={styles.profileSection}>
+                    <Link href="/dashboard" className={styles.avatarLink}>
+                        <div className={styles.avatar}>
+                            {user.name?.charAt(0).toUpperCase()}
+                        </div>
+                    </Link>
 
                     {/* Mobile Hamburger */}
                     <button
@@ -89,15 +72,6 @@ export default function Navbar() {
                             {item.label}
                         </Link>
                     ))}
-                    {session && (
-                        <Link
-                            href="/dashboard"
-                            className={styles.mobileLink}
-                            onClick={() => setIsMobileOpen(false)}
-                        >
-                            Dashboard
-                        </Link>
-                    )}
                 </div>
             )}
         </nav>

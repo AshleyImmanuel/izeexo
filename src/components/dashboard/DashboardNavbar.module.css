@@ -1,7 +1,8 @@
-/* Navbar.module.css */
+/* DashboardNavbar.module.css */
 .navbar {
     background: white;
     border-bottom: 1px solid #e5e7eb;
+    padding: 0;
     height: 70px;
     display: flex;
     align-items: center;
@@ -20,7 +21,6 @@
     align-items: center;
 }
 
-/* Logo */
 .logo {
     display: flex;
     align-items: center;
@@ -44,19 +44,12 @@
     font-size: 0.75rem;
     font-weight: 800;
     border-radius: 4px;
+    /* Slightly rounded square */
 }
 
-/* Links */
 .navLinks {
     display: flex;
     gap: 2.5rem;
-}
-
-/* Hide links on mobile */
-@media (max-width: 768px) {
-    .navLinks {
-        display: none;
-    }
 }
 
 .navItem {
@@ -76,30 +69,10 @@
     font-weight: 600;
 }
 
-/* Right Section */
-.rightSection {
+.profileSection {
     display: flex;
     align-items: center;
     gap: 1rem;
-}
-
-.loginBtn {
-    background: #000;
-    color: white;
-    padding: 0.5rem 1.25rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: opacity 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 36px;
-}
-
-.loginBtn:hover {
-    opacity: 0.8;
 }
 
 .avatarLink {
@@ -143,6 +116,10 @@
 }
 
 @media (max-width: 768px) {
+    .navLinks {
+        display: none;
+    }
+    
     .mobileToggle {
         display: flex;
     }
@@ -167,7 +144,6 @@
 .mobileMenu {
     position: absolute;
     top: 70px;
-    /* Header height */
     left: 0;
     width: 100%;
     background: white;

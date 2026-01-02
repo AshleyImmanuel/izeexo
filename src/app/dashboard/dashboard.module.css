@@ -1,0 +1,215 @@
+/* Dashboard Layout */
+.dashboardLayout {
+    min-height: 100vh;
+    background: #fdfdfd;
+    /* Very subtle off-white */
+    display: flex;
+    flex-direction: column;
+}
+
+.mainWrapper {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    flex: 1;
+}
+
+/* Page Header */
+.pageHeader {
+    margin-bottom: 2.5rem;
+}
+
+.pageTitle {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.pageSubtitle {
+    color: #6b7280;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.userName {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* Stats Grid */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.statCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.03);
+    /* Extremely subtle shadow */
+    border: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Colored Border Accents */
+.statCard::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+}
+
+.statCard.blue::before {
+    background: #3b82f6;
+}
+
+.statCard.yellow::before {
+    background: #eab308;
+}
+
+.statCard.gray::before {
+    background: #9ca3af;
+}
+
+.statInfo h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin: 0 0 0.5rem 0;
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+    line-height: 1;
+}
+
+.statIcon {
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statCard.blue .statIcon {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.statCard.yellow .statIcon {
+    background: #fefce8;
+    color: #eab308;
+}
+
+.statCard.gray .statIcon {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+
+/* Main Content Grid */
+.contentGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    /* 2:1 Ratio */
+    gap: 2rem;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 1rem 0;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #f3f4f6;
+    padding: 2rem;
+    min-height: 300px;
+    /* Dotted background specific to reference */
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Empty State Styling */
+.emptyIcon {
+    color: #d1d5db;
+    margin-bottom: 1rem;
+}
+
+.emptyText {
+    color: #111827;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.emptySubtext {
+    color: #6b7280;
+    font-size: 0.875rem;
+    max-width: 300px;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.actionButton {
+    background: #000;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.actionButton:hover {
+    transform: translateY(-1px);
+}
+
+.recentActivityCard {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #f3f4f6;
+    padding: 1.5rem;
+    min-height: 300px;
+}
+
+.noActivity {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .contentGrid {
+        grid-template-columns: 1fr;
+    }
+}

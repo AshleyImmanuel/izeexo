@@ -1,0 +1,51 @@
+.marqueeSection {
+    padding: 3rem 0;
+    overflow: hidden;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 3rem;
+}
+
+.label {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.marqueeContainer {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.track {
+    display: flex;
+    white-space: nowrap;
+    gap: 5rem;
+    width: fit-content;
+    padding: 1rem 0;
+}
+
+.brandItem {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #f2f2f2;
+    /* Very subtle default */
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    cursor: default;
+    /* Stroke effect for fashion feel */
+    -webkit-text-stroke: 1px #e0e0e0;
+    color: transparent;
+}
+
+.brandItem:hover {
+    color: #000;
+    -webkit-text-stroke: 0px;
+    transform: scale(1.05);
+}

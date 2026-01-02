@@ -7,7 +7,7 @@ export default function VisionSection() {
         <section className={styles.visionSection}>
             <h2 className={styles.sectionTitle}>Our Vision</h2>
             <p className={styles.visionText}>
-                "To redefine the intersection of technology and fashion, creating digital experiences that feel as tangible and luxurious as a couture garment."
+                "To redefine the intersection of identity and fashion, creating brand experiences that feel as tangible and luxurious as a couture garment."
             </p>
         </section>
     );

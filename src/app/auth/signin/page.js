@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { gsap } from "gsap";
 import styles from "./page.module.css";
 
@@ -17,32 +18,10 @@ export default function SignIn() {
     const contentRef = useRef(null);
     const formRef = useRef(null);
 
-    useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    // Removed GSAP animation for better performance - using CSS transitions instead
 
-        // Initial state
-        gsap.set([leftPanelRef.current, rightPanelRef.current], { autoAlpha: 0 });
-        gsap.set(contentRef.current.children, { y: 20, opacity: 0 });
-        gsap.set(formRef.current.children, { y: 20, opacity: 0 });
-
-        tl.to([leftPanelRef.current, rightPanelRef.current], {
-            autoAlpha: 1,
-            duration: 0.5
-        })
-            .to(contentRef.current.children, {
-                y: 0,
-                opacity: 1,
-                stagger: 0.1,
-                duration: 0.8
-            }, "-=0.2")
-            .to(formRef.current.children, {
-                y: 0,
-                opacity: 1,
-                stagger: 0.1,
-                duration: 0.8
-            }, "-=0.6");
-
-    }, []);
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
     const handleGoogleSignIn = async () => {
         setIsLoading(true);
@@ -57,7 +36,7 @@ export default function SignIn() {
 
         // Wait for animation then sign in
         setTimeout(async () => {
-            await signIn("google", { callbackUrl: "/" });
+            await signIn("google", { callbackUrl });
         }, 400);
     };
 
