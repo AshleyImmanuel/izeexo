@@ -15,6 +15,13 @@ export const authOptions = {
         async session({ session, user }) {
             if (session.user) {
                 session.user.id = user.id;
+
+                // Debugging Admin Role
+                console.log("---- ADMIN CHECK ----");
+                console.log("Session Email:", session.user.email);
+                console.log("Env Admin Email:", process.env.ADMIN_EMAIL);
+                console.log("Match Status:", session.user.email === process.env.ADMIN_EMAIL);
+
                 // Secure Admin Check using Environment Variable
                 if (session.user.email === process.env.ADMIN_EMAIL) {
                     session.user.role = 'admin';

@@ -16,18 +16,6 @@ export default async function AdminLayout({ children }) {
 
     return (
         <div style={{ padding: '0rem' }}>
-            {/* Optional: Add Admin-specific Header or Sidebar here if needed */}
-            <div style={{
-                background: '#fee2e2',
-                color: '#991b1b',
-                padding: '0.5rem 1rem',
-                fontSize: '0.8rem',
-                fontWeight: '600',
-                textAlign: 'center',
-                borderBottom: '1px solid #fecaca'
-            }}>
-                ADMIN MODE ACTIVE • {session.user.email}
-            </div>
             {children}
         </div>
     );

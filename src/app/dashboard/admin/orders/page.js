@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { toast } from 'react-hot-toast';
+import { Package, Search, Filter, MoreVertical, CheckCircle, XCircle, Clock } from "lucide-react";
+import styles from "../../dashboard.module.css";
 
 export default function AdminOrdersPage() {
     const [orders, setOrders] = useState([]);
@@ -28,10 +29,10 @@ export default function AdminOrdersPage() {
         }
     };
 
-    if (loading) return <DashboardLayout><div>Loading Orders...</div></DashboardLayout>;
+    if (loading) return <div style={{ padding: '2rem' }}>Loading Orders...</div>;
 
     return (
-        <DashboardLayout>
+        <div className={styles.dashboardPage}>
             <div style={{ padding: '2rem' }}>
                 <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }}>All Customer Orders</h1>
 
@@ -85,6 +86,6 @@ export default function AdminOrdersPage() {
                     </table>
                 </div>
             </div>
-        </DashboardLayout>
+        </div>
     );
 }

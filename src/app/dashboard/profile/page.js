@@ -68,9 +68,9 @@ export default function ProfilePage() {
                                             width: '8px',
                                             height: '8px',
                                             borderRadius: '50%',
-                                            background: '#10b981'
+                                            background: session.user.role === 'admin' ? '#3b82f6' : '#10b981'
                                         }}></span>
-                                        Active Customer
+                                        {session.user.role === 'admin' ? 'Official Administrator' : 'Active Customer'}
                                     </p>
                                 </div>
                             </div>
@@ -122,12 +122,14 @@ export default function ProfilePage() {
                                     alignItems: 'center',
                                     gap: '1rem',
                                     padding: '1rem',
-                                    background: '#f9fafb',
+                                    background: session.user.role === 'admin' ? '#eff6ff' : '#f9fafb',
                                     borderRadius: '12px',
-                                    border: '1px solid #e5e7eb'
+                                    border: session.user.role === 'admin' ? '1px solid #bfdbfe' : '1px solid #e5e7eb'
                                 }}>
-                                    <Shield size={20} color="#6b7280" />
-                                    <span style={{ color: '#374151', fontWeight: '500' }}>Authenticated User via Google</span>
+                                    <Shield size={20} color={session.user.role === 'admin' ? '#3b82f6' : '#6b7280'} />
+                                    <span style={{ color: session.user.role === 'admin' ? '#1d4ed8' : '#374151', fontWeight: '500' }}>
+                                        {session.user.role === 'admin' ? 'Authenticated Administrator' : 'Authenticated User via Google'}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +140,8 @@ export default function ProfilePage() {
                 <div className={styles.rightColumn}>
                     <div className={styles.recentActivityCard} style={{ background: '#fff', border: '1px solid #e5e7eb' }}>
                         <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '1rem', color: '#111827' }}>Account Actions</h3>
+
+
 
                         <button
                             onClick={() => signOut({ callbackUrl: '/' })}

@@ -1,22 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Preloader.module.css";
 import gsap from "gsap";
 import Image from "next/image";
 
 export default function Preloader({ onComplete }) {
     const containerRef = useRef(null);
-    const blueRef = useRef(null);
-    const pinkRef = useRef(null);
-    const finalRef = useRef(null);
-
-    // Text Refs
-    const text1Ref = useRef(null);
-    const text2Ref = useRef(null);
-    const logoWrapperRef = useRef(null);
-    const brandTitleRef = useRef(null);
-    const brandTagRef = useRef(null);
+    const counterRef = useRef(null);
+    const progressRef = useRef(null);
+    const shutterRef = useRef(null);
 
     useEffect(() => {
         const tl = gsap.timeline({
@@ -26,90 +19,63 @@ export default function Preloader({ onComplete }) {
             }
         });
 
-        // Initial setup - Force content visibility
-        gsap.set([text1Ref.current, text2Ref.current], { y: 80, opacity: 0 });
-        gsap.set([logoWrapperRef.current, brandTagRef.current], { opacity: 0, y: 30 });
+        // 1. Initial State (Avoid FOUC)
+        gsap.set(containerRef.current, { autoAlpha: 1 }); // Ensure visible
+        gsap.set(counterRef.current, { y: 100, opacity: 0 }); // Start hidden below
 
-        // Character Split for Title
-        if (brandTitleRef.current) {
-            const text = brandTitleRef.current.innerText;
-            const chars = text.split("");
-            brandTitleRef.current.innerHTML = chars
-                .map(c => `<span class="char" style="display:inline-block; opacity:0; transform:translateY(30px);">${c}</span>`)
-                .join("");
-        }
+        // 2. Counter Entry
+        tl.to(counterRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power3.out"
+        })
 
-        tl
-            // --- STEP 1: BLUE LAYER (DESIGN) ---
-            .to(text1Ref.current, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" })
-            .to(text1Ref.current, { y: -50, opacity: 0, duration: 0.4, ease: "power2.in" }, "+=0.2")
-            // Exit
-            .to(blueRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
+            // 3. Count up (0 to 100)
+            .to({}, {
+                duration: 1.5,
+                ease: "expo.inOut",
+                onUpdate: function () {
+                    // Simulate loading progress
+                    const progress = Math.round(this.progress() * 100);
+                    if (counterRef.current) {
+                        counterRef.current.innerText = progress;
+                    }
+                    // Optional: Animate a progress bar width if we had one
+                    if (progressRef.current) {
+                        progressRef.current.style.width = `${progress}%`;
+                    }
+                }
+            })
 
-            // --- STEP 2: PINK LAYER (ELEGANCE) ---
-            .to(text2Ref.current, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, "-=0.4")
-            .to(text2Ref.current, { y: -50, opacity: 0, duration: 0.4, ease: "power2.in" }, "+=0.2")
-            // Exit
-            .to(pinkRef.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
-
-            // --- STEP 3: WHITE LAYER (IZEEXO) ---
-            .to(logoWrapperRef.current, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                ease: "back.out(1.7)"
-            }, "-=0.3")
-            .to(brandTitleRef.current.querySelectorAll(".char"), {
-                y: 0,
-                opacity: 1,
-                stagger: 0.04,
-                duration: 0.6,
-                ease: "power3.out"
-            }, "-=0.6")
-            .to(brandTagRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
-
-            .to({}, { duration: 0.5 }) // Hold
-
-            // --- FINAL REVEAL ---
-            .to([logoWrapperRef.current, brandTitleRef.current, brandTagRef.current], {
-                scale: 1.5,
+            // 4. Exit Animation (Shutter Effect)
+            .to(counterRef.current, {
+                y: -100,
                 opacity: 0,
                 duration: 0.5,
                 ease: "power2.in"
             })
-            .to(finalRef.current, {
-                opacity: 0,
-                duration: 0.5
-            }, "-=0.1");
+            .to(shutterRef.current, {
+                yPercent: -100,
+                duration: 0.8,
+                ease: "power4.inOut"
+            }, "-=0.2"); // Overlap slightly
 
     }, [onComplete]);
 
     return (
         <div className={styles.preloader} ref={containerRef}>
+            {/* Background Shutter */}
+            <div className={styles.shutter} ref={shutterRef}></div>
 
-            {/* WHITE LAYER (Bottom/Final) */}
-            <div className={`${styles.layer} ${styles.white}`} ref={finalRef}>
-                <div className={styles.centerContent}>
-                    <div className={styles.logoWrapper} ref={logoWrapperRef}>
-                        <Image src="/logo.jpg" alt="Izeexo" width={180} height={180} className={styles.logo} priority />
-                    </div>
-                    {/* suppressHydrationWarning to safe-guard char split */}
-                    <h1 className={styles.brandTitle} ref={brandTitleRef} suppressHydrationWarning>IZEEXO</h1>
-                    <p className={styles.brandTag} ref={brandTagRef}>VISUALIZING THE EXTRAORDINARY</p>
-                </div>
+            {/* Counter Number */}
+            <div className={styles.counterContainer}>
+                <span className={styles.counterText} ref={counterRef}>0</span>
+                <span className={styles.counterText}>%</span>
             </div>
 
-            {/* PINK LAYER (Middle) */}
-            <div className={`${styles.layer} ${styles.pink}`} ref={pinkRef}>
-                <h2 className={styles.bigText} ref={text2Ref}>ELEGANCE</h2>
-            </div>
-
-            {/* BLUE LAYER (Top) */}
-            <div className={`${styles.layer} ${styles.blue}`} ref={blueRef}>
-                <h2 className={styles.bigText} ref={text1Ref}>DESIGN</h2>
-            </div>
-
+            {/* Progress Bar (Optional, simpler visual) */}
+            <div className={styles.progressBar} ref={progressRef}></div>
         </div>
     );
 }

@@ -5,126 +5,86 @@
     width: 100vw;
     height: 100vh;
     z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    /* Start dark/premium */
+    color: #fff;
+    overflow: hidden;
 }
 
-.layer {
+/* Container for the 0-100% Counter */
+.counterContainer {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 8vw;
+    font-weight: 900;
+    line-height: 1;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    z-index: 50;
+    mix-blend-mode: difference;
+    /* Cool effect if background changes */
+    opacity: 0;
+    /* Hidden initially to avoid FOUC */
+}
+
+/* The actual number text */
+.counterText {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    /* Or project font */
+    letter-spacing: -0.05em;
+    color: #fff;
+}
+
+/* Visual bar or progress line */
+.progressBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: #fff;
+    width: 0%;
+    z-index: 40;
+}
+
+/* Final Reveal Layer (White shutter) */
+.shutter {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.blue {
-    background-color: #2563eb;
-    z-index: 30;
-}
-
-.pink {
-    background-color: #ec4899;
-    z-index: 20;
-}
-
-
-
-.white {
-    background-color: #ffffff;
-    background-image: linear-gradient(#e5e7eb 1px, transparent 1px),
-        linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
-    background-size: 40px 40px;
+    background: #000;
     z-index: 10;
+    transform-origin: top;
 }
 
-.bigText {
-    font-size: 12vw;
-    font-weight: 900;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: -0.05em;
-    margin: 0;
-    line-height: 1;
-}
-
-.centerContent {
+.logoContainer {
     position: relative;
-    z-index: 20;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    z-index: 60;
+    overflow: hidden;
+    opacity: 0;
+    /* Hidden initially */
     text-align: center;
 }
 
-.logoWrapper {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 1px solid #eee;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    transform: scale(0.8);
+.finalLogo {
+    width: 120px;
+    height: 120px;
+    /* Adjust based on actual logo ratio */
+    object-fit: contain;
 }
 
-.logo {
-    object-fit: cover;
-}
-
-.brandTitle {
-    color: #000;
-    /* Black text on White bg */
-    font-size: 4rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    margin: 0;
-    line-height: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.brandTag {
-    color: #666;
-    /* Grey tag */
-    font-family: monospace;
-    letter-spacing: 0.2em;
-    font-size: 0.9rem;
-}
-
-/* Character animation helpers */
-.brandTitle :global(.char) {
-    display: inline-block;
-    opacity: 0;
-}
-
+/* Mobile Adjustments */
 @media (max-width: 768px) {
-    .bigText {
-        font-size: 18vw;
+    .counterContainer {
+        font-size: 15vw;
+        bottom: 1.5rem;
+        right: 1.5rem;
     }
-
-    .brandTitle {
-        font-size: 2.5rem;
-    }
-
-    .logoWrapper {
-        width: 140px;
-        height: 140px;
-    }
-}
-
-/* Textured Backgrounds - Removed for performance as requested */
-
-/* Ensure Text is above texture */
-.bigText {
-    z-index: 20;
-    position: relative;
-    will-change: transform, opacity;
-}
-
-/* Optimize Layers */
-.layer {
-    will-change: transform;
 }
