@@ -23,7 +23,13 @@ export default function DashboardNavbar({ user }) {
         <nav className={styles.navbar}>
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
-                    <div className={styles.logoIcon}>ZE</div>
+                    <Image 
+                        src="/logo.jpg" 
+                        alt="IZEEXO" 
+                        width={32} 
+                        height={32} 
+                        className={styles.logoIcon} // reusing class for shape/size
+                    />
                     <span>IZEEXO</span>
                 </Link>
 

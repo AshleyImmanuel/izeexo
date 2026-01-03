@@ -15,7 +15,12 @@ export const authOptions = {
         async session({ session, user }) {
             if (session.user) {
                 session.user.id = user.id;
-                session.user.isAdmin = user.isAdmin;
+                // Secure Admin Check using Environment Variable
+                if (session.user.email === process.env.ADMIN_EMAIL) {
+                    session.user.role = 'admin';
+                } else {
+                    session.user.role = 'user';
+                }
             }
             return session;
         },

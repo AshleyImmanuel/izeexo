@@ -167,7 +167,6 @@
 .mobileMenu {
     position: absolute;
     top: 70px;
-    /* Header height */
     left: 0;
     width: 100%;
     background: white;

@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
+import Navbar from "@/components/Navbar";
 import DashboardLoader from "@/components/dashboard/DashboardLoader";
 import styles from "./dashboard.module.css";
 
@@ -27,7 +27,7 @@ export default function DashboardLayout({ children }) {
 
     return (
         <div className={styles.dashboardLayout}>
-            <DashboardNavbar user={session.user} />
+            <Navbar />
             <main className={styles.mainWrapper}>
                 {children}
             </main>
