@@ -144,14 +144,62 @@
     .large {
         grid-column: span 2;
     }
+
+    .card {
+        padding: 2rem;
+    }
+
+    .cardTitle {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 640px) {
+    .section {
+        padding: 3rem 0;
+    }
+
     .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+        /* Prevent overflow */
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        gap: 1rem;
     }
 
     .large {
-        grid-column: span 1;
+        grid-column: span 1 !important;
+        /* Force single column */
+    }
+
+    .tall {
+        grid-row: span 1;
+    }
+
+    .card {
+        padding: 1.5rem;
+        min-height: auto;
+        /* Remove fixed min-height if content pushes it */
+    }
+
+    .cardTitle {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .cardDesc {
+        font-size: 0.95rem;
+    }
+
+    .icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
     }
 }

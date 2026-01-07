@@ -77,7 +77,7 @@ export default function ServicesBento() {
                 </div>
 
                 {/* 4. Storefronts */}
-                <div className={`${styles.card} ${styles.large}`} style={{ gridColumn: 'span 2' }}>
+                <div className={`${styles.card} ${styles.large}`}>
                     <div className={styles.content}>
                         <div className={styles.icon}>04</div>
                         <h3 className={styles.cardTitle}>Digital Flagships</h3>

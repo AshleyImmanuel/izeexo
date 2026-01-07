@@ -143,7 +143,7 @@ export default function AboutPage() {
                 {/* Our Model - Split Section */}
                 <section className={`${styles.section} split_section`}>
                     <div className={styles.sectionHeader}>
-                        <h2 className={styles.sectionTitle}>Chose Your Path</h2>
+                        <h2 className={styles.sectionTitle}>Choose Your Path</h2>
                         <p className={styles.sectionSubtitle}>Two ways to elevate your brand with Izeexo.</p>
                     </div>
                     <div className={styles.splitGrid}>

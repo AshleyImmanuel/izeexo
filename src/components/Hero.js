@@ -38,7 +38,7 @@ export default function Hero() {
         }, "-=0.8");
 
         // Reveal Actions
-        tl.from(`.${styles.actions}`, {
+        tl.from(`.${styles.buttonGroup}`, {
             y: 20,
             opacity: 0,
             duration: 0.8,

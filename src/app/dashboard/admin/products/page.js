@@ -28,6 +28,23 @@ export default function AdminProductsPage() {
         }
     };
 
+    const handleDelete = async (productId, productTitle) => {
+        if (!confirm(`Are you sure you want to delete "${productTitle}"?`)) return;
+
+        try {
+            const res = await fetch(`/api/admin/products/${productId}`, {
+                method: 'DELETE'
+            });
+
+            if (!res.ok) throw new Error("Failed to delete product");
+
+            toast.success("Product deleted successfully!");
+            fetchProducts(); // Refresh the list
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
     if (loading) return (
         <div className={styles.dashboardPage}>
             <div style={{
@@ -113,10 +130,13 @@ export default function AdminProductsPage() {
                                     <td style={{ padding: '1.25rem', color: '#666' }}>{product.date}</td>
                                     <td style={{ padding: '1.25rem', textAlign: 'right' }}>
                                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                                            <button style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', color: '#666' }}>
+                                            <Link href={`/dashboard/admin/products/${product.id}`} style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', color: '#666', display: 'inline-flex', alignItems: 'center' }}>
                                                 <Edit size={16} />
-                                            </button>
-                                            <button style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #fee2e2', background: '#fef2f2', cursor: 'pointer', color: '#ef4444' }}>
+                                            </Link>
+                                            <button
+                                                onClick={() => handleDelete(product.id, product.title)}
+                                                style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #fee2e2', background: '#fef2f2', cursor: 'pointer', color: '#ef4444' }}
+                                            >
                                                 <Trash2 size={16} />
                                             </button>
                                         </div>
