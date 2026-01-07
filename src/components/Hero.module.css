@@ -194,29 +194,29 @@
 
 @media (max-width: 768px) {
     .hero {
-        padding-top: 1rem;
+        padding-top: 0;
         padding-bottom: 2rem;
+        margin-top: 90px;
+        /* Clear the fixed navigation bar (20px padding + ~52px nav + buffer) */
     }
 
     .content {
         padding: 1rem;
-        padding-top: 200px;
-        /* Safe clearance */
+        padding-top: 20px;
+        /* Minimal top padding since hero has margin-top */
         padding-bottom: 3rem;
     }
 
     .badge {
-        font-size: 0.65rem;
-        padding: 0.4rem 0.8rem;
-        margin-bottom: 1rem;
+        display: none;
+        /* Hidden on mobile to reduce congestion */
     }
 
     .title {
-        font-size: clamp(1.75rem, 9vw, 2.75rem);
-        margin-bottom: 1rem;
+        font-size: clamp(2rem, 9vw, 2.8rem);
+        /* Slightly larger now that badge is gone */
+        margin-bottom: 1.25rem;
         line-height: 1.15;
-        animation: mobile-pulse 4s ease-in-out infinite;
-        /* Subtle pulse animation for mobile */
     }
 
     @keyframes mobile-pulse {
@@ -237,6 +237,7 @@
         font-size: 1rem;
         margin-bottom: 1.25rem;
         padding: 0 0.5rem;
+        line-height: 1.5;
     }
 
     .buttonGroup {
