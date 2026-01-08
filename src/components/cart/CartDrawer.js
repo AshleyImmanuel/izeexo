@@ -19,9 +19,29 @@ export default function CartDrawer() {
         return () => window.removeEventListener("keydown", handleEsc);
     }, [setIsCartOpen]);
 
+    const handleCheckout = () => {
+        const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+917907314022';
+
+        // Build the message
+        let message = `*New Order Request - Izeexo Store* \n\n`;
+
+        cart.forEach((item, index) => {
+            message += `${index + 1}. *${item.title}* (${item.category})\n`;
+            message += `   Qty: ${item.quantity} | Price: ₹${item.price.toLocaleString("en-IN")}\n\n`;
+        });
+
+        message += `*Total Amount: ₹${cartTotal.toLocaleString("en-IN")}*\n\n`;
+        message += `I'd like to proceed with this order. Please guide me through payment and delivery.`;
+
+        const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
+
+        window.open(whatsappUrl, '_blank');
+        // Close modal implicitly via window change, or we can keep it open.
+        // Let's keep it open or maybe clear it? For now, just leave it as is so user can verify.
+    };
+
     if (!isCartOpen && typeof window !== 'undefined') {
-        // Keep DOM clean when closed, but maybe better to keep it mounted for animation?
-        // For simple slide transition, keeping it mounted with CSS transform is fine.
+        // Keep DOM clean when closed
     }
 
     return (
@@ -106,7 +126,7 @@ export default function CartDrawer() {
                             <span>Total</span>
                             <span>₹{cartTotal.toLocaleString("en-IN")}</span>
                         </div>
-                        <button className={styles.checkoutBtn} onClick={() => alert("Checkout Integration Coming Soon!")}>
+                        <button className={styles.checkoutBtn} onClick={handleCheckout}>
                             Proceed to Checkout
                         </button>
                     </div>

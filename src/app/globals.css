@@ -1,6 +1,7 @@
 :root {
   /* Brand Colors */
   --color-primary: #0044CC;
+  --color-primary-rgb: 0, 68, 204;
   /* Premium Blue */
   --color-primary-dark: #003399;
   --color-secondary: #000000;

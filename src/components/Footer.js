@@ -56,7 +56,7 @@ export default function Footer() {
                                 <a href="https://youtube.com/@izeexo" target="_blank" className={styles.socialItem}>
                                     <FaYoutube className={styles.socialIcon} style={{ color: '#FF0000' }} /> YouTube
                                 </a>
-                                <a href="mailto:hello@izeexo.com" className={styles.socialItem}>
+                                <a href="mailto:suryadevpm8@gmail.com" className={styles.socialItem}>
                                     <FaEnvelope className={styles.socialIcon} style={{ color: '#EA4335' }} /> Email
                                 </a>
                             </div>

@@ -19,13 +19,13 @@ function LayoutContent({ children }) {
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Check if intro has explicitly played in this session
-    const hasSeenIntro = sessionStorage.getItem("intro_shown");
-    if (hasSeenIntro) {
-      setIsLoading(false);
-    }
-  }, []); // Run once on mount
+  // useEffect(() => {
+  //   // Check if intro has explicitly played in this session
+  //   const hasSeenIntro = sessionStorage.getItem("intro_shown");
+  //   if (hasSeenIntro) {
+  //     setIsLoading(false);
+  //   }
+  // }, []); // Run once on mount
 
   const handlePreloaderComplete = () => {
     setIsLoading(false);

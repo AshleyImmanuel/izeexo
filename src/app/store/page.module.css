@@ -119,9 +119,10 @@
 }
 
 .activeRange {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #4f46e5 100%);
-    border-color: var(--color-primary);
-    color: white;
+    background: var(--color-primary) !important;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #4f46e5 100%) !important;
+    border-color: var(--color-primary) !important;
+    color: white !important;
     font-weight: 700;
     box-shadow: 0 4px 16px rgba(var(--color-primary-rgb), 0.3);
     transform: translateY(-1px);

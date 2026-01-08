@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./Preloader.module.css";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 
@@ -18,19 +19,15 @@ export default function Preloader({ onComplete }) {
     const brandTitleRef = useRef(null);
     const brandTagRef = useRef(null);
 
-    useEffect(() => {
+    useGSAP(() => {
         const tl = gsap.timeline({
             onComplete: () => {
                 if (onComplete) onComplete();
-                if (containerRef.current) {
-                    gsap.set(containerRef.current, { display: "none" });
-                }
+                // We don't necessarily need to hide it here if the parent unmounts it, 
+                // but for safety in dev:
+                // gsap.set(containerRef.current, { display: "none" }); 
             }
         });
-
-        // Store timeout to clear if unmounted
-        let cleanupTimer;
-
 
         // Initial setup - Force content visibility
         gsap.set([text1Ref.current, text2Ref.current], { y: 80, opacity: 0 });
@@ -39,10 +36,13 @@ export default function Preloader({ onComplete }) {
         // Character Split for Title
         if (brandTitleRef.current) {
             const text = brandTitleRef.current.innerText;
-            const chars = text.split("");
-            brandTitleRef.current.innerHTML = chars
-                .map(c => `<span class="char" style="display:inline-block; opacity:0; transform:translateY(30px);">${c}</span>`)
-                .join("");
+            // Prevent double splitting if re-running
+            if (!brandTitleRef.current.querySelector('.char')) {
+                const chars = text.split("");
+                brandTitleRef.current.innerHTML = chars
+                    .map(c => `<span class="char" style="display:inline-block; opacity:0; transform:translateY(30px);">${c}</span>`)
+                    .join("");
+            }
         }
 
         tl
@@ -66,7 +66,7 @@ export default function Preloader({ onComplete }) {
                 duration: 0.8,
                 ease: "back.out(1.7)"
             }, "-=0.3")
-            .to(brandTitleRef.current.querySelectorAll(".char"), {
+            .to(".char", { // Select by class within scope
                 y: 0,
                 opacity: 1,
                 stagger: 0.04,
@@ -89,11 +89,7 @@ export default function Preloader({ onComplete }) {
                 duration: 0.5
             }, "-=0.1");
 
-        return () => {
-            tl.kill();
-            if (cleanupTimer) clearTimeout(cleanupTimer);
-        };
-    }, [onComplete]);
+    }, { scope: containerRef, dependencies: [onComplete] });
 
     return (
         <div className={styles.preloader} ref={containerRef}>

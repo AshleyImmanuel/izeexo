@@ -187,6 +187,33 @@ export default function Navbar() {
                         </li>
                     ))}
                     <li>
+                        <button
+                            className="mobile-menu-link"
+                            onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setIsCartOpen(true);
+                            }}
+                            style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', textAlign: 'left' }}
+                        >
+                            Cart
+                            {cartCount > 0 && (
+                                <span style={{
+                                    background: '#0a0a0a',
+                                    color: '#fff',
+                                    borderRadius: '50%',
+                                    width: '20px',
+                                    height: '20px',
+                                    fontSize: '0.75rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    {cartCount}
+                                </span>
+                            )}
+                        </button>
+                    </li>
+                    <li>
                         {session ? (
                             <>
                                 <Link

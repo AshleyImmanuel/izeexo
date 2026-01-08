@@ -4,12 +4,18 @@ import { Package, Clock, CreditCard, LayoutDashboard, FileText, Users, ShoppingB
 import styles from "./dashboard.module.css";
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import DashboardStats from "@/components/dashboard/DashboardStats";
 
 async function getUserData(session) {
     // Basic User Stats (Mocked or API based previously, now we can keep it simple or fetch real if needed)
     // For now, keeping the existing fetch logic effectively or assuming defaults
     // Since the original was fetching from an API, let's just stick to the visual structure.
-    return { stats: null, recentActivity: [] };
+    // Basic User Stats
+    // We want to show "Total Items in Store" which is a global stat, not user specific, but useful for user dashboard.
+    const totalProducts = await prisma.product.count();
+
+    // For now, keeping the existing fetch logic effectively or assuming defaults for others
+    return { stats: { totalOrders: 0, completedProjects: 0, totalProducts }, recentActivity: [] };
 }
 
 async function getAdminData() {
@@ -112,6 +118,7 @@ export default async function DashboardPage() {
     // Fetch user data (keeping original logic simplified to avoid breakage)
     const { stats, recentActivity } = await getUserData(session);
 
+
     return (
         <div className={styles.dashboardPage}>
             {/* Header */}
@@ -122,41 +129,11 @@ export default async function DashboardPage() {
                 </p>
             </header>
 
-            {/* Stats Cards */}
-            <div className={styles.statsGrid}>
-                {/* Total Orders - Blue */}
-                <div className={`${styles.statCard} ${styles.blue}`}>
-                    <div className={styles.statInfo}>
-                        <h3>Total Orders</h3>
-                        <p className={styles.statValue}>{stats?.totalOrders || 0}</p>
-                    </div>
-                    <div className={styles.statIcon}>
-                        <Package size={24} />
-                    </div>
-                </div>
-
-                {/* Active Requests - Yellow */}
-                <div className={`${styles.statCard} ${styles.yellow}`}>
-                    <div className={styles.statInfo}>
-                        <h3>Active Requests</h3>
-                        <p className={styles.statValue}>{stats?.activeProjects || 0}</p>
-                    </div>
-                    <div className={styles.statIcon}>
-                        <Clock size={24} />
-                    </div>
-                </div>
-
-                {/* Completed - Gray */}
-                <div className={`${styles.statCard} ${styles.gray}`}>
-                    <div className={styles.statInfo}>
-                        <h3>Completed</h3>
-                        <p className={styles.statValue}>{stats?.completedProjects || 0}</p>
-                    </div>
-                    <div className={styles.statIcon}>
-                        <CreditCard size={24} />
-                    </div>
-                </div>
-            </div>
+            {/* Stats Cards - Replaced with Client Component */}
+            <DashboardStats
+                totalOrders={stats?.totalOrders || 0}
+                totalProducts={stats?.totalProducts || 0}
+            />
 
             {/* Main Content Grid */}
             <div className={styles.contentGrid}>

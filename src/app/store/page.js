@@ -59,8 +59,12 @@ export default function StorePage() {
     useGSAP(() => {
         if (loading) return; // Don't animate if loading
 
+        // Check if there are any products to animate
+        const cards = containerRef.current?.querySelectorAll(".product-card-anim");
+        if (!cards || cards.length === 0) return;
+
         // Staggered reveal for products when filter changes or on load
-        gsap.from(".product-card-anim", {
+        gsap.from(cards, {
             y: 50,
             opacity: 0,
             duration: 0.6,
@@ -121,9 +125,9 @@ export default function StorePage() {
 
                 {/* Results Grid */}
                 <div className={styles.grid}>
-                    {filteredProducts.map((product) => (
+                    {filteredProducts.map((product, index) => (
                         <div key={product.id} className="product-card-anim">
-                            <ProductCard product={product} />
+                            <ProductCard product={product} priority={index < 4} />
                         </div>
                     ))}
                     {filteredProducts.length === 0 && !loading && (
