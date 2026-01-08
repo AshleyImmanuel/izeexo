@@ -26,7 +26,12 @@ export default function Footer() {
                         <p className={styles.brandDesc}>
                             A Premium Design Studio Visualizing The Extraordinary For Forward-Thinking Brands.
                         </p>
-                        <Link href="/contact" className={styles.ctaButton} prefetch={false}>
+                        <Link
+                            href="/contact"
+                            className={styles.ctaButton}
+                            prefetch={false}
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        >
                             For Custom Designs or Logo <FaArrowRight className={styles.btnIcon} />
                         </Link>
                         <div className={styles.studioInfo}>
