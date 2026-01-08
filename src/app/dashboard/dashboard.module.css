@@ -5,6 +5,12 @@
     /* Very subtle off-white */
     display: flex;
     flex-direction: column;
+    flex-direction: column;
+}
+
+/* Fix for preload warning */
+.preloadFix {
+    display: none;
 }
 
 .dashboardPage {

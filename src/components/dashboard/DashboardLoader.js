@@ -1,9 +1,10 @@
 import styles from "./DashboardLoader.module.css";
 import Image from "next/image";
+import layoutStyles from "../../app/dashboard/dashboard.module.css";
 
 export default function DashboardLoader({ text = "SYNCING..." }) {
     return (
-        <div className={styles.loaderContainer}>
+        <div className={`${styles.loaderContainer} ${layoutStyles.preloadFix}`}>
             <div className={styles.logoWrapper}>
                 <Image
                     src="/logo.jpg"
