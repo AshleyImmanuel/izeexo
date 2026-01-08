@@ -20,6 +20,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizeCss: false, // Disable CSS optimization to prevent preload warnings
+  },
 };
 
 export default nextConfig;
