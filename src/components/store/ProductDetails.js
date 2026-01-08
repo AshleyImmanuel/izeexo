@@ -87,6 +87,7 @@ export default function ProductDetails({ product }) {
                                         className={styles.mainMedia}
                                         style={{ objectFit: 'contain' }}
                                         priority={activeIndex === 0}
+                                        sizes="(max-width: 768px) 100vw, 50vw"
                                         unoptimized
                                     />
                                 )}
@@ -122,6 +123,7 @@ export default function ProductDetails({ product }) {
                                                 alt={`Thumb ${index}`}
                                                 fill
                                                 style={{ objectFit: 'cover' }}
+                                                sizes="100px"
                                                 unoptimized
                                             />
                                         )}

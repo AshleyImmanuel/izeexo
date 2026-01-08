@@ -15,6 +15,7 @@ export default function ProductCard({ product, priority = false }) {
                         fill
                         className={styles.image}
                         priority={priority}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
                     {/* Overlay Removed as per user request */}
                 </div>
