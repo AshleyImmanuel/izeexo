@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import styles from "./CartDrawer.module.css";
-import { X, Minus, Plus, ShoppingBag } from "lucide-react";
+import { X, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useEffect } from "react";
 
@@ -110,8 +110,9 @@ export default function CartDrawer() {
                                         <button
                                             className={styles.removeBtn}
                                             onClick={() => removeFromCart(item.id)}
+                                            aria-label="Remove item"
                                         >
-                                            Remove
+                                            <Trash2 size={16} />
                                         </button>
                                     </div>
                                 </div>

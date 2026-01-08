@@ -172,10 +172,19 @@
 .removeBtn {
     background: none;
     border: none;
-    color: #ef4444;
-    font-size: 0.8rem;
+    color: #999;
     cursor: pointer;
-    text-decoration: underline;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.removeBtn:hover {
+    background: #fee2e2;
+    color: #dc2626;
 }
 
 .footer {
