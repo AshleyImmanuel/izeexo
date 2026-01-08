@@ -196,8 +196,8 @@
     .hero {
         padding-top: 0;
         padding-bottom: 3rem;
-        margin-top: 100px;
-        /* More breathing room from nav */
+        margin-top: 140px;
+        /* SIGNIFICANT gap to match reference */
     }
 
     .content {
@@ -208,8 +208,11 @@
 
     .badge {
         display: inline-block;
-        /* Show badge again but smaller? No, keep hidden for cleaner look */
-        display: none;
+        /* Restored to match professional reference */
+        font-size: 0.7rem;
+        /* Slightly smaller for mobile */
+        margin-bottom: 1rem;
+        padding: 0.4rem 0.8rem;
     }
 
     .title {
