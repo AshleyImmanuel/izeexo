@@ -203,7 +203,7 @@
 
 @media (max-width: 768px) {
     .main {
-        padding-top: 180px;
+        padding-top: 240px !important;
         /* Match global mobile spacing */
     }
 

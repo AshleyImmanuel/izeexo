@@ -98,7 +98,7 @@ export default function Preloader({ onComplete }) {
             <div className={`${styles.layer} ${styles.white}`} ref={finalRef}>
                 <div className={styles.centerContent}>
                     <div className={styles.logoWrapper} ref={logoWrapperRef}>
-                        <Image src="/logo.jpg" alt="Izeexo" width={180} height={180} className={styles.logo} priority />
+                        <Image src="/logo-new.jpg" alt="Izeexo" width={180} height={180} className={styles.logo} priority />
                     </div>
                     {/* suppressHydrationWarning to safe-guard char split */}
                     <h1 className={styles.brandTitle} ref={brandTitleRef} suppressHydrationWarning>IZEEXO</h1>

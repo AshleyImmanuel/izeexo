@@ -1,0 +1,26 @@
+
+@media (max-width: 768px) {
+    .section {
+        padding: 4rem 0;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .viewAll {
+        font-size: 0.9rem;
+    }
+
+    .imagePlaceholder {
+        height: 250px;
+    }
+}
