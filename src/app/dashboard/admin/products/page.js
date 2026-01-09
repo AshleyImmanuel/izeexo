@@ -56,19 +56,13 @@ export default function AdminProductsPage() {
                 gap: '1rem',
                 color: '#6b7280'
             }}>
-                <div style={{
+                <div className={styles.spin} style={{
                     width: '40px',
                     height: '40px',
                     border: '3px solid #e5e7eb',
                     borderTopColor: '#2563eb',
                     borderRadius: '50%',
-                    animation: 'spin 1s linear infinite'
                 }} />
-                <style jsx>{`
-                    @keyframes spin {
-                        to { transform: rotate(360deg); }
-                    }
-                `}</style>
                 <span style={{ fontSize: '0.9rem', fontWeight: '500' }}>Loading Products...</span>
             </div>
         </div>

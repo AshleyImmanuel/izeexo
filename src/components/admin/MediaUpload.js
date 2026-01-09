@@ -5,6 +5,7 @@ import { Upload, X, Loader2, Image as ImageIcon, Film } from "lucide-react";
 import Image from "next/image";
 
 import { toast } from 'react-hot-toast';
+import styles from "../../app/dashboard/dashboard.module.css";
 
 export default function MediaUpload({ mediaUrls = [], onUpdate }) {
     const [uploading, setUploading] = useState(false);
@@ -114,7 +115,7 @@ export default function MediaUpload({ mediaUrls = [], onUpdate }) {
                     color: '#6b7280',
                     background: uploading ? '#f3f4f6' : 'transparent'
                 }}>
-                    {uploading ? <Loader2 size={24} className="spin" /> : <Upload size={24} />}
+                    {uploading ? <Loader2 size={24} className={styles.spin} /> : <Upload size={24} />}
                     <span style={{ fontSize: '0.7rem', marginTop: '0.5rem' }}>{uploading ? 'Uploading...' : 'Add Media'}</span>
                     <input
                         type="file"
@@ -127,8 +128,8 @@ export default function MediaUpload({ mediaUrls = [], onUpdate }) {
                 </label>
             </div>
             <style jsx>{`
-                .spin { animation: spin 1s linear infinite; }
-                @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                /* .spin { animation: spin 1s linear infinite; } */
+                /* @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } */
             `}</style>
         </div>
     );
