@@ -30,7 +30,7 @@ export default function StorePage() {
     useEffect(() => {
         async function init() {
             try {
-                const prodRes = await fetch('/api/products');
+                const prodRes = await fetch('/api/products', { cache: 'no-store' });
 
                 if (prodRes.ok) {
                     const data = await prodRes.json();
@@ -40,11 +40,14 @@ export default function StorePage() {
                     if (data.length > 0) {
                         const highest = Math.max(...data.map(p => p.price));
                         setMaxPrice(highest);
-
-                        // Extract unique categories from products
-                        const uniqueCategories = [...new Set(data.map(p => p.category))];
-                        setDbCategories(["All", ...uniqueCategories]);
                     }
+                }
+
+                // Fetch Categories explicitly
+                const catRes = await fetch('/api/admin/categories');
+                if (catRes.ok) {
+                    const catData = await catRes.json();
+                    setDbCategories(["All", ...catData.map(c => c.name)]);
                 }
             } catch (error) {
                 console.error("Failed to load store data:", error);
