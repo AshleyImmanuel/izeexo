@@ -137,7 +137,7 @@ export default function EditProductPage({ params }) {
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '1rem', fontFamily: 'inherit' }} />
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div className={styles.formTwoCol}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Price (₹)</label>
                             <input type="number" name="price" required min="0" step="0.01" value={formData.price} onChange={handleChange}
