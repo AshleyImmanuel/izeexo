@@ -29,63 +29,20 @@ export default function AdminProductsPage() {
     };
 
     const handleDelete = async (productId, productTitle) => {
-        toast((t) => (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <span style={{ fontSize: '0.9rem', fontWeight: '500' }}>
-                    Delete "{productTitle}"?
-                </span>
-                <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
-                    <button
-                        onClick={async () => {
-                            toast.dismiss(t.id);
-                            try {
-                                const res = await fetch(`/api/admin/products/${productId}`, {
-                                    method: 'DELETE'
-                                });
-                                if (!res.ok) throw new Error("Failed to delete product");
-                                toast.success("Product deleted successfully!");
-                                fetchProducts();
-                            } catch (error) {
-                                toast.error(error.message);
-                            }
-                        }}
-                        style={{
-                            background: '#ef4444',
-                            color: 'white',
-                            border: 'none',
-                            padding: '6px 12px',
-                            borderRadius: '6px',
-                            fontSize: '0.8rem',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Delete
-                    </button>
-                    <button
-                        onClick={() => toast.dismiss(t.id)}
-                        style={{
-                            background: '#f3f4f6',
-                            color: '#374151',
-                            border: 'none',
-                            padding: '6px 12px',
-                            borderRadius: '6px',
-                            fontSize: '0.8rem',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        ), {
-            duration: 5000,
-            style: {
-                background: '#fff',
-                color: '#333',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                border: '1px solid #f3f4f6'
-            },
-        });
+        if (!confirm(`Are you sure you want to delete "${productTitle}"?`)) return;
+
+        try {
+            const res = await fetch(`/api/admin/products/${productId}`, {
+                method: 'DELETE'
+            });
+
+            if (!res.ok) throw new Error("Failed to delete product");
+
+            toast.success("Product deleted successfully!");
+            fetchProducts(); // Refresh the list
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     if (loading) return (
