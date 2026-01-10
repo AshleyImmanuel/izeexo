@@ -25,7 +25,7 @@ export default function ProfilePage() {
                 {/* Main Profile Card */}
                 <div className={styles.leftColumn}>
                     <div className={styles.card} style={{ padding: '2rem 1rem' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
                                 <div style={{
                                     width: '100px',
