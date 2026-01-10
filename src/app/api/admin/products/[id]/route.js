@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 export const dynamic = 'force-dynamic';
 
 export async function GET(req, { params }) {
+    const { id } = await params;
     try {
         const session = await getServerSession(authOptions);
         // Admin check is good but maybe we want to allow viewing for detail page? 
@@ -15,7 +16,7 @@ export async function GET(req, { params }) {
         }
 
         const product = await prisma.product.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: { category: true }
         });
 
@@ -32,6 +33,7 @@ export async function GET(req, { params }) {
 }
 
 export async function PATCH(req, { params }) {
+    const { id } = await params;
     try {
         const session = await getServerSession(authOptions);
         if (!session || session.user.role !== 'admin') {
@@ -50,7 +52,7 @@ export async function PATCH(req, { params }) {
         if (isFeatured !== undefined) updateData.isFeatured = isFeatured;
 
         const product = await prisma.product.update({
-            where: { id: params.id },
+            where: { id },
             data: updateData
         });
 
@@ -63,6 +65,7 @@ export async function PATCH(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
+    const { id } = await params;
     try {
         const session = await getServerSession(authOptions);
         if (!session || session.user.role !== 'admin') {
@@ -70,7 +73,7 @@ export async function DELETE(req, { params }) {
         }
 
         await prisma.product.update({
-            where: { id: params.id },
+            where: { id },
             data: { isArchived: true }
         });
 
