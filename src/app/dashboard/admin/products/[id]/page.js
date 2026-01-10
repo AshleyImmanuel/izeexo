@@ -7,6 +7,7 @@ import { ArrowLeft, Save, Trash2, Loader2, Link as LinkIcon } from "lucide-react
 import Link from "next/link";
 import styles from "../../../dashboard.module.css";
 import MediaUpload from "@/components/admin/MediaUpload";
+import DashboardLoader from "@/components/dashboard/DashboardLoader";
 
 export default function EditProductPage({ params }) {
     // Unwrap params using React.use()
@@ -99,7 +100,7 @@ export default function EditProductPage({ params }) {
         }));
     };
 
-    if (loading) return <div className={styles.dashboardPage}><div style={{ padding: '2rem' }}>Loading Product Data...</div></div>;
+    if (loading) return <DashboardLoader text="LOADING PRODUCT..." />;
 
     return (
         <div className={styles.dashboardPage}>
@@ -137,7 +138,7 @@ export default function EditProductPage({ params }) {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
                         <div>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Price ($)</label>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Price (₹)</label>
                             <input type="number" name="price" required min="0" step="0.01" value={formData.price} onChange={handleChange}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '1rem' }} />
                         </div>
