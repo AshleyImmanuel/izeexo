@@ -53,6 +53,11 @@ export default function SignIn() {
 
     const handleGoogleSignIn = async () => {
         setIsLoading(true);
+        if (typeof window !== 'undefined') {
+            // Reset intro cookie so it plays on next visit
+            document.cookie = "intro_shown=; max-age=0; path=/";
+            sessionStorage.removeItem("intro_shown");
+        }
 
         // Animate out the panels
         gsap.to([leftPanelRef.current, rightPanelRef.current], {

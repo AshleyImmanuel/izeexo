@@ -20,7 +20,7 @@ import PrivacyProtection from "@/components/PrivacyProtection";
 
 function LayoutContent({ children }) {
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     // Prevent right-click on images
@@ -46,17 +46,29 @@ function LayoutContent({ children }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // Check if intro has explicitly played in this session
-  //   const hasSeenIntro = sessionStorage.getItem("intro_shown");
-  //   if (hasSeenIntro) {
-  //     setIsLoading(false);
-  //   }
-  // }, []); // Run once on mount
+  // Check global variable set by inline script to prevent flash
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !window.__INTRO_SHOWN__;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    // Fallback: Check if intro has explicitly played in this session (double check)
+    // AND check cookie in case inline script missed (unlikely but safe)
+    if (typeof window !== 'undefined') {
+      const hasSeenIntro = sessionStorage.getItem("intro_shown") || document.cookie.includes("intro_shown=true");
+      if (hasSeenIntro) {
+        setIsLoading(false);
+      }
+    }
+  }, []);
 
   const handlePreloaderComplete = () => {
     setIsLoading(false);
     sessionStorage.setItem("intro_shown", "true");
+    document.cookie = "intro_shown=true; path=/; max-age=31536000"; // 1 year
   };
 
   const isAuthPage = pathname?.startsWith('/auth');
@@ -78,6 +90,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (document.cookie.includes('intro_shown=true')) {
+                  window.__INTRO_SHOWN__ = true;
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
         <Provider>
           <Toaster position="bottom-center" toastOptions={{
             style: {
