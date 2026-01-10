@@ -6,7 +6,26 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { gsap } from "gsap";
-import styles from "./page.module.css";
+// import styles from "./page.module.css"; // Removed module import
+
+// Global styles map
+const styles = {
+    main: "signin_main",
+    leftPanel: "signin_leftPanel",
+    brandName: "signin_brandName",
+    heading: "signin_heading",
+    accent: "signin_accent",
+    subheading: "signin_subheading",
+    featureBadge: "signin_featureBadge",
+    footer: "signin_footer",
+    rightPanel: "signin_rightPanel",
+    backButton: "signin_backButton",
+    formContainer: "signin_formContainer",
+    formTitle: "signin_formTitle",
+    formSubtitle: "signin_formSubtitle",
+    googleBtn: "signin_googleBtn",
+    spinner: "signin_spinner",
+};
 
 export default function SignIn() {
     const [isLoading, setIsLoading] = useState(false);
